@@ -20,6 +20,8 @@ private:
 public:
 	void login();
 	void withdrawals();
+    void main2();
+    void getcard();
 	void deposit();
 	void tranfer();
 	void getbalance();
@@ -29,12 +31,39 @@ public:
 
 int main()
 {
-up:
+	machine call;
+	int answer;
+    cout<<"\t\t\t\t| press 1) apply for card "<<endl;
+	cout<<"\t\t\t\t| press 2) For other options"<<endl;
+	cin>>answer;
+
+	switch (answer)
+	{
+	case 1:
+	{
+		call.getcard();
+		break;
+	}
+	case 2:
+	{
+		call.main2();
+		break;
+	}
+
+	
+	default:
+		break;
+	}
+
+}
+
+void machine::main2()
+{
+
+    up:
 	string comcard;
 	char c;
-	int pin;
 	int compin;
-	machine call;
 
 	cout << "enter your card number : ";
 	cin >> cardnumber;
@@ -64,8 +93,8 @@ up:
 			while (file >> comcard >> compin)
 			{
 				if (cardnumber == comcard && pin == compin)
-				{
-					call.login();
+				{ 
+				   login();
 				}
 				else
 				{
@@ -78,6 +107,44 @@ up:
 		{
 			cout << "error occured try again later";
 			exit(0);
+		}
+	}
+
+}
+
+void machine::getcard()
+{
+	up:
+
+	cout<<"enter card number of your choise: ";
+	cin>>cardnumber;
+
+	for(size_t i = 0; i<cardnumber.length(); i++)
+	{
+		if(cardnumber.length() != 10 )
+		{
+			cout<<"the card number you enter is above or less than ten";
+			goto up;
+		}
+		else
+		{
+			ofstream file;
+			file.open(cardnumber +".txt");
+			if(file.is_open())
+			{
+				cout<<"enter pin : ";
+				cin>>pin;
+
+				file<<cardnumber<<endl
+				    <<pin<<endl;
+
+				deposit();
+			}
+			else
+			{
+				cout<<"error creating card try later "<<endl;
+				goto up;
+			}
 		}
 	}
 }
@@ -135,6 +202,7 @@ void machine::login()
 		exit(0);
 		break;
 	}
+    
 	}
 }
 
