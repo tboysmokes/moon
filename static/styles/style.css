@@ -1,0 +1,95 @@
+body{ 
+    background-color: black;
+    font-family: Calibri;
+}
+
+div.contain{
+    display: flex;
+}
+
+div.top{
+    margin-left: 100px;
+    margin-top: 150px;
+}
+
+
+h1.open{
+    text-transform: capitalize;
+    color: white;
+    font-size: 100px;
+}
+
+h2.under{
+    color: rgb(255, 255, 255);
+    text-transform: lowercase;
+    margin-top: -90px;
+    margin-left: 10px;
+}
+
+div.top2{
+    background-color: blue;
+    margin-left: 270px;
+    padding-top: 50px;
+    padding-bottom: 55px;
+    padding-left: 140px;
+    padding-right: 140px;
+    text-align: left;
+}
+
+
+h1.open2{
+    color: rgb(0, 0, 0);
+    font-family: Calibri;
+    margin-bottom: 50px;
+    font-size: 40px;
+    text-transform: capitalize;
+}
+
+p.under2{
+    color: white;
+    margin-top: -20px;
+}
+
+ div.login{
+    border-radius: 10px;
+    background-color: rgb(255, 255, 255);
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 37px;
+    padding-bottom: 37px;
+ }
+
+ div.login input{
+    width: 100%;
+    margin-bottom: 20px;
+ }
+
+div.login input[type="text"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #00000081;
+    background: transparent;
+    outline: none;
+    height: 30px;
+}
+
+div.login input[type="submit"]{
+    border: none;
+    background-color: rgb(137, 84, 186);
+    outline: none;
+    height: 40px;
+    font-size: 17px;
+    border-radius: 10px;
+}
+
+p.name{
+
+    font-size: 15px;
+}
+
+p.Password{
+    font-size: 15px;
+}
+
+a.forpass{
+    text-align: left;
+}

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{url_for('static', filename='styles/regsty.css')}}" rel="stylesheet" />
+    <title>register</title>
+</head>
+
+<body>
+    <div class="contain">
+        <div class="register">
+            <h1 align="center" class="letter">register</h1>
+            <form method="POST" class="signup">
+                <p class="firstN">first name</p>
+                <input type="text" 
+                name="firstname" 
+                id="firstname" 
+                placeholder="First name......">
+                <p class="lastN">last name</p>
+                <input type="text" 
+                name="lastname" 
+                id="lastname" 
+                placeholder="Last name......">
+                <p class="email">email</p>
+                <input type="email" 
+                name="email" 
+                id="email"
+                placeholder="Email......">
+                <p class="no">phone number</p>
+                <input type="text" 
+                name="phoneno" 
+                id="phoneno" 
+                placeholder="Phone number.....">
+                <p class="password">password</p>
+                <input type="password" 
+                name="password" 
+                id="password" 
+                placeholder="Password......">
+                <p class="conpass">password</p>
+                <input type="password" 
+                name="password2" 
+                id="password2" 
+                placeholder="Confirm Password.....">
+                <input type="submit" name="log" id="logbutton" value="signup">
+                <a href="{{url_for('login')}}">already have an account.</a>
+            </form>
+        </div>
+    </div>
+</body>
+
+</html>

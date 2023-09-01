@@ -1,0 +1,86 @@
+body{
+    background-color: black;
+    font-family: Calibri;
+    color: white;
+}
+
+div.contain{
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    background: rgba(255, 255, 255, 0.153);
+    margin-left: 400px;
+    margin-right: 400px;
+    margin-top: 20px;
+    border-radius: 30px;
+}
+
+div.register input{
+    width: 100%;
+}
+
+div.register{
+    padding-left: 50px;
+    padding-right: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
+div.register input[type="text"], input[type="name2"], input[type="email"], input[type="number"], input[type="password"], input[type="password"]{
+    border: none;
+    border-bottom: 1px solid #ffffff9c;
+    background: transparent;
+    outline: none;
+    height: 20px;
+}
+
+h1.letter{
+    font-family: Calibri;
+    text-transform: uppercase;
+    color: rgb(255, 255, 255);
+}
+
+p.firstN{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+p.lastN{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+p.email{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+p.no{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+p.password{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+p.conpass{
+    color: rgb(255, 255, 255);
+    text-transform: capitalize;
+}
+
+div.register input[type="submit"]{
+    margin-top: 40px;
+    margin-bottom: 40px;
+    border: none;
+    background-color: rgb(137, 84, 186);
+    outline: none;
+    height: 40px;
+    font-size: 17px;
+    border-radius: 10px;
+    color: white;
+}
+
+div.register input[placeholder="First name......"], input[placeholder="Last name......"], input[placeholder="Email......"], input[placeholder="Phone number....."], input[placeholder="Password......"], input[placeholder="Confirm Password....."]{ 
+    margin-left: 10px;
+    color: white;
+}
