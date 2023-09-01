@@ -39,6 +39,9 @@ div.outter3{
 
 }
 
+div.outter1:hover{
+}
+
 div.inner1{
     margin: 15px 100px;
     margin-left: 50px;
@@ -208,4 +211,14 @@ div.wrapper .sidenav ul li{
 div.wrapper .sidenav img{
     padding-right: 10px;
     width: 20px;
+}
+
+div.wrapper .sidenav ul li:hover{
+    width: 140px;
+    background-color: rgba(240, 248, 255, 0.482);
+    border-radius: 10px;
+}
+
+div.wrapper .sidenav img:hover{
+    width: 30px;
 }
