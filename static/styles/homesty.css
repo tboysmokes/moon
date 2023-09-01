@@ -18,21 +18,21 @@ div.container{
 }
 
 div.outter1{
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
     margin-left: 10px;
     background-color: rgb(187, 113, 255);
 }
 
 div.outter2{
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
     margin-left: 20px;
     background-color: rgba(233, 51, 51, 0.746);
 }
 
 div.outter3{
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
     margin-left: 20px;
     background-color: rgb(155, 226, 0);
@@ -40,6 +40,18 @@ div.outter3{
 }
 
 div.outter1:hover{
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
+
+div.outter2:hover{
+    margin-bottom: 20px;
+    margin-top: -20px;
+}
+
+div.outter3:hover{
+    margin-bottom: 20px;
+    margin-top: -20px;
 }
 
 div.inner1{
