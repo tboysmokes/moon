@@ -1,0 +1,52 @@
+body{
+    background-color: black;
+    color: white;
+}
+
+div.wrapper{
+    margin-top: 0px;
+    margin-left: 1070px;
+    display: flex;
+    position: relative;
+}
+div .sidenav{
+    padding: 30px 30px;
+}
+
+div.wrapper .sidenav{
+    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    position: fixed;
+    width: 230px;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.093);
+    text-align: top right;
+    text-transform: capitalize;
+}
+
+div.wrapper .sidenav h2{
+    font-size: 20px;
+    margin-top: 50px;
+    padding-bottom: 50px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.623);
+}
+
+
+div.wrapper .sidenav ul li{
+    padding: 20px;
+}
+
+div.wrapper .sidenav img{
+    padding-right: 10px;
+    width: 20px;
+}
+
+div.wrapper .sidenav ul li:hover{
+    width: 160px;
+    background-color: rgba(240, 248, 255, 0.482);
+    border-radius: 10px;
+}
+
+div.wrapper .sidenav img:hover{
+    width: 25.5px;
+}

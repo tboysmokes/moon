@@ -6,7 +6,7 @@
     <title>Document</title>
     <link href="{{ url_for('static', filename='styles/homesty.css')}}"rel="stylesheet"/>
 </head>
-<body background="{{ url_for('static', filename = 'image.jpg')}}"> 
+<body  background="{{ url_for('static', filename = 'image.jpg')}}" width="100%""> 
     <h1 class="user">Titilope olododo</h1>
     <div class="container">
       <div class="outter1">
@@ -34,78 +34,24 @@
         </div>
       </div>
     </div>
-    <div class="contain">
-        <div class="historyhead">
-            <h2 class="childname">Username</h2>
-            <h2 class="spent">amount spent</h2>
-            <h2 class="date">date</h2>
-            <h2 class="spenon">used for</h2>
-        </div>
-            <table style="width:60%">
-                <tr>
-                  <td>omotomiwa</td>
-                  <td>$12.000</td> 
-                  <td>20/5/2023</td>
-                  <td>unknow</td>
-                </tr>
-                <tr>
-                  <td>omotomiwa</td>
-                  <td>$12.000</td> 
-                  <td>20/5/2023</td>
-                  <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                <tr>
-                    <td>omotomiwa</td>
-                    <td>$12.000</td> 
-                    <td>20/5/2023</td>
-                    <td>unknow</td>
-                </tr>
-                  
-              </table>
-        </div>
-    <div class="wrapper">
-        <div class="sidenav">
-            <h2>nav bar</h2>
-            <ul>
-                <li><img src="{{ url_for('static', filename='home-page.png')}}">dashboard</li>
-                <li><img src="{{ url_for('static', filename='user.png')}}">account</li>
-                <li><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
-            </ul>
-            <div class="logout">
-                <a href="" class="logouts"></a>
-            </div>
-        </div>
-    </div>
     
 </body>
+<footer>
+  <div class="wrapper">
+    <div class="icons">
+    <div class="icon1">
+         <img src="{{ url_for('static', filename='home-page.png')}}">
+    </div>
+    <div class="icon2">
+         <img src="{{ url_for('static', filename='user.png')}}">
+    </div>
+    <div class="icon3">
+            <img  src="{{ url_for('static', filename='group.png')}}">
+    </div>
+    <div class="icon4">
+            <img src="{{ url_for('static', filename='notification.png')}}">
+    </div>
+  </div>
+ </div>
+</footer>
 </html>

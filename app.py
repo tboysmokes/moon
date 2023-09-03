@@ -45,10 +45,15 @@ def first_page():
 def home():
     return render_template('home.html')
 
+@app.route('/sidenav')
+def sidena():
+    return render_template('sidenav.html')
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     data = request.form
     print (data)
+    home()
     return render_template('index.html')
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -79,7 +84,7 @@ new_user = User(firstname = firstname, lastname = lastname, email = email, Phone
             db.session.add(new_user)
             db.session.commit()
             flash('account created successfully', category='successful')'''
-            return home()
+            home()
 
     return render_template('register.html')
  

@@ -13,45 +13,33 @@ h1.user{
 div.container{
     margin-top: 20px;
     margin-left: 20px;
-    display: flex;
+    margin-right: 20px;
     
 }
 
 div.outter1{
+    margin-top: 40px;
+    margin-bottom: 40px;
     box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
-    margin-left: 10px;
     background-color: rgb(187, 113, 255);
 }
 
 div.outter2{
+    margin-top: 40px;
+    margin-bottom: 40px;
     box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
-    margin-left: 20px;
     background-color: rgba(233, 51, 51, 0.746);
 }
 
 div.outter3{
+    margin-top: 40px;
+    margin-bottom: 40px;
     box-shadow: 0 2px 4px 0 rgba(255, 255, 255, 0.252), 0 3px 10px 0 rgba(255, 255, 255, 0.326);
     border-radius: 15px;
-    margin-left: 20px;
     background-color: rgb(155, 226, 0);
 
-}
-
-div.outter1:hover{
-    margin-bottom: 20px;
-    margin-top: -20px;
-}
-
-div.outter2:hover{
-    margin-bottom: 20px;
-    margin-top: -20px;
-}
-
-div.outter3:hover{
-    margin-bottom: 20px;
-    margin-top: -20px;
 }
 
 div.inner1{
@@ -135,102 +123,41 @@ p.accname3{
     margin-top: -35px;
 }
 
-div.contain{
-    margin-left: 70px;
-}
-
-
-div.historyhead{
-    margin-top: 70px;
-    display: flex;
-}
-
-h2.childname{
-    color: rgba(255, 255, 255, 0.619);
-    font-size: 20px;
-    text-transform: lowercase;
-}
-
-h2.spent{
-    color: rgba(255, 255, 255, 0.619);
-    margin-left: 130px;
-    font-size: 20px;
-    text-transform: lowercase;
-}
-
-h2.date{
-    color: rgba(255, 255, 255, 0.619);
-    margin-left: 130px;
-    font-size: 20px;
-    text-transform: lowercase;
-}
-
-h2.spenon{
-    color: rgba(255, 255, 255, 0.619);
-    margin-left: 130px;
-    font-size: 20px;
-    text-transform: lowercase;
-}
-
-table, th,td {
-    border-collapse: collapse;
-    border: none;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.457);
-}
-
-th, td {
-    padding: 15px;
-
-}
-
-
-img{
-    width: 30px;
-}
 
 div.wrapper{
-    margin-top: -820px;
-    margin-left: 1070px;
+    width: 100%;
+    margin-top: 90px;
+}
+
+div.wrapper .icons{
+    height: 20%;
     display: flex;
-    position: relative;
-}
-div .sidenav{
-    padding: 30px 30px;
-}
-
-div.wrapper .sidenav{
-    box-shadow: 0 4px 8px 0 rgba(255, 255, 255, 0.252), 0 6px 20px 0 rgba(255, 255, 255, 0.326);
+    width: 100%;
     position: fixed;
-    width: 230px;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.153);
-    text-align: top right;
-    text-transform: capitalize;
+    background-color: rgba(255, 255, 255, 0.449);
+    border-radius: 20px;
 }
 
-div.wrapper .sidenav h2{
-    font-size: 20px;
-    margin-top: 50px;
-    padding-bottom: 50px;
-    text-align: center;
-    border-bottom: 1px solid rgba(255, 255, 255, 0.623);
+div.icon1{
+    margin-left: 37px;
 }
 
-div.wrapper .sidenav ul li{
-    padding: 20px;
+div.icon2{
+    margin-left: 40px;
 }
 
-div.wrapper .sidenav img{
-    padding-right: 10px;
-    width: 20px;
+div.icon3{
+    margin-left: 40px;
 }
 
-div.wrapper .sidenav ul li:hover{
-    width: 140px;
-    background-color: rgba(240, 248, 255, 0.482);
-    border-radius: 10px;
+div.icon4{
+    margin-left: 40px;
 }
 
-div.wrapper .sidenav img:hover{
+
+div.wrapper img{
+    margin-top: 34px;
+    margin-left: 20px;
     width: 30px;
 }
+
