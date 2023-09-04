@@ -10,19 +10,21 @@
 
 <body>
   <div class="wrapper">
-    <div class="sidenav">
-      <h2>nav bar</h2>
-      <ul>
-        <li><img src="{{ url_for('static', filename='home-page.png')}}">dashboard</li>
-        <li><img src="{{ url_for('static', filename='user.png')}}">account</li>
-        <li><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
-        <li><img src="{{ url_for('static', filename='notification.png')}}">Notification</a></li>
-      </ul>
-      <div class="logout">
-        <a href="" class="logouts"></a>
-      </div>
+    <div class="icons">
+    <div class="icon1">
+         <img src="{{ url_for('static', filename='home-page.png')}}">
+    </div>
+    <div class="icon2">
+         <img src="{{ url_for('static', filename='user.png')}}">
+    </div>
+    <div class="icon3">
+            <img  src="{{ url_for('static', filename='group.png')}}">
+    </div>
+    <div class="icon4">
+            <img src="{{ url_for('static', filename='setting.png')}}">
     </div>
   </div>
+ </div>
 </body>
 
 </html>

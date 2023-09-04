@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="{{ url_for('static', filename='styles/create.css')}}"rel="stylesheet"/>
+    <title>Welcome</title>
+</head>
+<body>
+    <h1 class="header">child deatils</h1>
+    <div class="top">
+        <div class="inner">
+            <form action="" method="POST">
+                <h3 >chid name</h3>
+                <input type="text" name="name" id="name">
+                <h3>age</h3>
+                <input type="number" name="age" id="age">
+                <h3>card number</h3>
+                <input type="text" name="cardno" id="cardno">
+                <h3>data</h3>
+                <input type="text" maxlength="3" required name="data" id="data">
+                <h3>cvv</h3>
+                <input type="text" name="cvv" id="cvv"><br>
+                <input type="submit" value="submit">
+            </form>
+
+        </div>
+    </div>
+</body>
+</html>

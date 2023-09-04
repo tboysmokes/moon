@@ -9,7 +9,23 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'child bank app'
 
 
-command = '''CREATE TABLE IF NOT EXISTS users(firstname TEXT, lastname TEXT, email TEXT, phonenumber TEXT, password TEXT)'''
+command = '''CREATE TABLE IF NOT EXISTS users
+    (ID            INTEGER     PRIMARY KEY,   
+    firstname       TEXT       NOT NULL, 
+    lastname        TEXT       NOT NULL, 
+    email           TEXT       NOT NULL, 
+    phonenumber     CHAR(12)   NOT NULL,
+    password        TEXT       NOT NULL);'''
+
+run = '''CREATE TABLE IF NOT EXISTS child
+      (ID         INTEGER      PRIMARY KEY
+      NAME         TEXT         NOT NULL,
+      AGE          CHAR(2)      NOT NULL,
+      CARD NUMBER  CHAR(18)     NOT NULL,
+      DATA         CHAR(4)      NOT NULL,
+      CVV          CHAR(3)      NOT NULL,
+      FOREIGN KEY(users_ID) REFERENCES users(ID)
+      );'''
 
 cursor.execute(command)
 
@@ -17,7 +33,17 @@ cursor.execute(command)
 
 @app.route('/', methods=['GET', 'POST'])
 def first_page():
-    return render_template('index.html')
+    if request.method == 'POST':
+        childname = request.form['name']
+        childage = request.form['age']
+        cardnum = request.form['cardno']
+        date = request.form['data']
+        cvv = request.form['cvv']
+
+        print(childname, cvv)
+        cursor.execute("INSERT INTO child VALUES(?,?,?,?,?)", (childname, childage, cardnum, date, cvv))
+
+    return render_template('create.html')
 
     
 @app.route('/home')
@@ -70,6 +96,7 @@ def register():
         cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)", (firstname, lastname, email, PhoneNumber, Password))
         connection.commit()
         print("successful")
+        return render_template('create.html')
 
     return render_template('register.html')
 

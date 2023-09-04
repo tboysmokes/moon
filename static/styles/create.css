@@ -1,0 +1,47 @@
+body{
+    font-family: Calibri;
+    display: flex;
+    flex-direction: column;
+    justify-content:center;
+    align-items: center;
+    height: 110vh;
+    background: linear-gradient(to right, blue, rgb(177, 181, 255));
+}
+
+h1{
+    text-transform: uppercase;
+    margin-bottom: 70px;
+}
+
+div.top{
+    border-radius: 30px;
+    background-color: rgba(255, 255, 255, 0.992);
+}
+
+form{
+    padding: 30px 55px;
+
+}
+div.inner h3{
+    text-transform: capitalize;
+    font-size: 20px;
+}
+
+div.inner input{
+    background: transparent;
+    outline: none;
+    height: 20px;
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.542);
+}
+
+div.inner input[type="submit"]{
+    font-size: 14px;
+    border-radius: 10px;
+    height: 30px;
+    border: none;
+    margin-top: 30px;
+    background-color: blueviolet;
+}
+
