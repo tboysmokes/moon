@@ -1,47 +1,91 @@
 body{
     font-family: Calibri;
-    display: flex;
-    flex-direction: column;
-    justify-content:center;
-    align-items: center;
-    height: 110vh;
     background: linear-gradient(to right, blue, rgb(177, 181, 255));
 }
 
-h1{
+div.text{
+   margin-top: 50px;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+div.rem h1{
+    color: white;
     text-transform: uppercase;
-    margin-bottom: 70px;
+    font-size: 60px;
+}
+
+div.rem p{
+    text-transform: capitalize;
+    color: white;
+    font-size: 25px;
+    margin-top: -50px;
 }
 
 div.top{
-    border-radius: 30px;
-    background-color: rgba(255, 255, 255, 0.992);
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px 40px;
 }
 
-form{
-    padding: 30px 55px;
-
+div.inner{
+    width: 300px;
+    padding: 20px 40px;
+    border-radius: 15px;
+    background-color: blue;
+    margin-bottom: 250px;
 }
+
+
 div.inner h3{
+    color: white;
     text-transform: capitalize;
     font-size: 20px;
 }
 
 div.inner input{
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+div.inner input[type="text"], input[type="number"]{
+    color: white;
+    border: none;
+    border-bottom: 1px solid #ffffff81;
+    border-left: 1px solid #ffffff81;
     background: transparent;
     outline: none;
-    height: 20px;
-    width: 100%;
-    border: none;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.542);
+    height: 25px;
 }
 
 div.inner input[type="submit"]{
-    font-size: 14px;
+    font-size: 20px;
     border-radius: 10px;
-    height: 30px;
+    height: 40px;
     border: none;
     margin-top: 30px;
-    background-color: blueviolet;
+    margin-bottom: 30px;
+    background-color: rgb(255, 255, 255);
+}
+
+div.inner input[type="submit"]:hover{
+    font-size: 14px;
+    border-radius: 10px;
+    height: 45px;
+    border: none;
+    margin-top: 30px;
+    box-shadow: 2px 4px rgba(0, 0, 0, 0.439), 2px 4px rgba(0, 0, 0, 0.439);
+    background-color: rgb(192, 148, 234);
+}
+
+
+div.inner a{
+    margin-left: 110px;
+    text-align: center;
+    color: white;
+    font-size: 25px;
 }
 

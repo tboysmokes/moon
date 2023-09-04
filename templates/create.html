@@ -7,23 +7,28 @@
     <title>Welcome</title>
 </head>
 <body>
-    <h1 class="header">child deatils</h1>
+    <div class="text">
+     <div class="rem">
+      <h1>monitor</h1>
+      <p>your child expenses</p>
+     </div>
+    </div>
     <div class="top">
         <div class="inner">
             <form action="" method="POST">
                 <h3 >chid name</h3>
-                <input type="text" name="name" id="name">
+                <input type="text" required name="name" id="name">
                 <h3>age</h3>
-                <input type="number" name="age" id="age">
+                <input type="number" maxlength="2" required name="age" id="age">
                 <h3>card number</h3>
-                <input type="text" name="cardno" id="cardno">
-                <h3>data</h3>
-                <input type="text" maxlength="3" required name="data" id="data">
+                <input type="text" maxlength="17" required name="cardno" id="cardno">
+                <h3>date</h3>
+                <input type="text" maxlength="5" required name="data" id="data">
                 <h3>cvv</h3>
-                <input type="text" name="cvv" id="cvv"><br>
+                <input type="text" maxlength="3" required name="cvv" id="cvv"><br>
                 <input type="submit" value="submit">
+                <a href="{{ url_for('home')}}">skip</a>
             </form>
-
         </div>
     </div>
 </body>

@@ -1,17 +1,18 @@
 body{
-    background-color: black;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(57, 57, 57));
     color: white;
     font-family: Calibri;
 }
 
 div.contain{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
     margin-top: 50px;
+    margin-bottom: 50px;
 }
 
-div.register{
-    margin-left: 20px;
-    margin-right: 20px;
-}
 
 div.register h1{
     text-transform: uppercase;

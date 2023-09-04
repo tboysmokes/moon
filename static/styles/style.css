@@ -1,5 +1,5 @@
 body{
-    background-color: black;
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(57, 57, 57));
     color: white;
     font-family: Calibri;
 }
@@ -24,6 +24,9 @@ h2.under{
 }
 
 div.top2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px 40px;
 }
 

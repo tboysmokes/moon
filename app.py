@@ -8,7 +8,6 @@ cursor = connection.cursor()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'child bank app'
 
-
 command = '''CREATE TABLE IF NOT EXISTS users
     (ID            INTEGER     PRIMARY KEY,   
     firstname       TEXT       NOT NULL, 
@@ -16,18 +15,21 @@ command = '''CREATE TABLE IF NOT EXISTS users
     email           TEXT       NOT NULL, 
     phonenumber     CHAR(12)   NOT NULL,
     password        TEXT       NOT NULL);'''
+ 
+ 
 
 run = '''CREATE TABLE IF NOT EXISTS child
       (ID         INTEGER      PRIMARY KEY
       NAME         TEXT         NOT NULL,
       AGE          CHAR(2)      NOT NULL,
       CARD NUMBER  CHAR(18)     NOT NULL,
-      DATA         CHAR(4)      NOT NULL,
+      DATA         CHAR(5)      NOT NULL,
       CVV          CHAR(3)      NOT NULL,
       FOREIGN KEY(users_ID) REFERENCES users(ID)
       );'''
 
 cursor.execute(command)
+
 
 
 
@@ -42,10 +44,16 @@ def first_page():
 
         print(childname, cvv)
         cursor.execute("INSERT INTO child VALUES(?,?,?,?,?)", (childname, childage, cardnum, date, cvv))
+        print("successful")
 
     return render_template('create.html')
 
     
+@app.route('/settings')
+def settings():
+    return render_template('setting.html')
+
+
 @app.route('/home')
 def home():
     return render_template('home.html')
