@@ -1,10 +1,12 @@
 body {
     font-family: Calibri;
     color: rgb(255, 255, 255);
+    
 
 }
 
 h1.user{
+    font-size: 25px;
     margin-top: 30px;
     text-transform: uppercase;
     margin-left: 30px;
@@ -43,23 +45,20 @@ div.outter3{
 }
 
 div.inner1{
-    margin: 15px 100px;
+
     margin-left: 50px;
  
     color: white;
 }
 
 div.inner2{
-    margin: 15px 100px;
     margin-left: 50px;
     
     color: white;
 }
 
 div.inner3{
-    margin: 15px 100px;
     margin-left: 50px;
-
     color: white;
 }
 
@@ -121,11 +120,13 @@ p.amount3{
 p.accname3{
     text-transform: capitalize;
     margin-top: -35px;
+
 }
 
 
 div.wrapper{
     width: 100%;
+    margin-left: -8px;
     margin-top: 90px;
 }
 

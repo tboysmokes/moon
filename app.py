@@ -1,46 +1,25 @@
 from flask import Flask, render_template, url_for, request, flash, redirect
-from flask_sqlalchemy import SQLAlchemy
 from flask_login import UserMixin
-from os import path
+import sqlite3
 
-
-DB_NAME = 'database.db'
+connection = sqlite3.connect("user_data.db", check_same_thread=False)
+cursor = connection.cursor()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'child bank app'
-app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{DB_NAME}'
-db = SQLAlchemy(app)
-#db.init_app(app)
-'''
-class Child(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    childname = db.Column(db.String(150))
-    childaccount = db.Column(db.Integer, unique=True)
-    user_id = db.Column(db.Integer, db.Foreignkey('User.id'))
-
-class User(db.Model, UserMixin):
-    id = db.Column(db.Integer, primary_key=True)
-    firstname = db.Column(db.String(150))
-    lastname = db.Column(db.String(150))
-    email = db.Column(db.String(150), unique=True)
-    phonenumber = db.Column(db.Integer, unique=True)
-    password = db.Column(db.String(150))
-    child = db.relationship('Child')
 
 
-def create_database():
-    if not path.exist('BANK_PROJECT/'+ DB_NAME):
-        db.create_all(app=app)
-        print('Created database successful!')
-    '''
+command = '''CREATE TABLE IF NOT EXISTS users(firstname TEXT, lastname TEXT, email TEXT, phonenumber TEXT, password TEXT)'''
+
+cursor.execute(command)
+
+
 
 @app.route('/', methods=['GET', 'POST'])
 def first_page():
-    data = request.form
-    print(data)
     return render_template('index.html')
 
-
+    
 @app.route('/home')
 def home():
     return render_template('home.html')
@@ -51,42 +30,52 @@ def sidena():
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
-    data = request.form
-    print (data)
-    home()
-    return render_template('index.html')
+    if request.method == 'POST':
+        useremail = request.form['email']
+        userpassword = request.form['password']
+
+        print(useremail, userpassword)
+
+        if len(useremail) < 7:
+            flash('Email must be greater that seven charaters ', category='error')
+        elif len(userpassword) > 20:
+            flash('password can not be more that 20 chr', category='error')
+        else:
+            query = "SELECT email, password FROM users where email = '"+useremail+"' and password = '"+userpassword+"' "
+            # what to do with the data
+            cursor.execute(query)
+
+            result = cursor.fetchall()
+
+            if len(result) == 0:
+                print("incorrect email or password")
+            else:
+                return render_template('home.html')
+
+
+    return render_template('index.html')    
+
+
 
 @app.route('/signup', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        firstname = request.form.get('firstname')
-        lastname = request.form.get('lastname')
-        email = request.form.get('email')
-        PhoneNumber = request.form.get('phoneno')
-        Password = request.form.get('password')
-        Password2 = request.form.get('password2')
+        firstname = request.form['firstname']
+        lastname = request.form['lastname']
+        email = request.form['email']
+        PhoneNumber = request.form['phoneno']
+        Password = request.form['password']
+        print(firstname, Password)
 
-        if len(email) < 7:
-            flash('Email be greater that seven charaters ', category='error')
-        elif len(firstname) > 20:
-            flash('firstname must be less than twenty charaters ', category='error')
-        elif len(lastname) > 50:
-            flash('lastname must be less than twenty charaters ', category='error')
-        elif len(Password) > 30:
-            flash('password must be less than thirty ', category='error')
-        elif len(PhoneNumber) > 10 or len(PhoneNumber) < 10:
-            flash('Phone number must equal ten ', category='error')
-        elif Password != Password2:
-            flash('Your password does not match', category='error')
-        else:
-            '''    # add user to database
-new_user = User(firstname = firstname, lastname = lastname, email = email, PhoneNumber = PhoneNumber, Password = Password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash('account created successfully', category='successful')'''
-            home()
+        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)", (firstname, lastname, email, PhoneNumber, Password))
+        connection.commit()
+        print("successful")
 
     return render_template('register.html')
+
+@app.route('/logout')
+def logout():
+    return render_template('index.html')
  
 
 if __name__  == '__main__':

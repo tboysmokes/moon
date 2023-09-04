@@ -3,4 +3,4 @@ log/
 *.txt
 *.exe
 *.db
-*.py
+app.py
