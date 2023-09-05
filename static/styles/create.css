@@ -1,6 +1,6 @@
 body{
     font-family: Calibri;
-    background: linear-gradient(to right, blue, rgb(177, 181, 255));
+    background: linear-gradient(to right, rgb(0, 0, 0), rgb(53, 53, 53));
 }
 
 div.text{

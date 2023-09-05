@@ -3,10 +3,68 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
     <link href="{{ url_for('static', filename='styles/homesty.css')}}"rel="stylesheet"/>
 </head>
-<body  background="{{ url_for('static', filename = 'image.jpg')}}" width="100%"> 
+<body> 
+    <h1 class="header">username</h1>
+    <div class="box">
+        <h1>total spent: </h1>
+        <h2 class="total"> $10.000</h2>
+    </div>
+    <div class="container">
+        <div class="box1">
+            <h2>$2000.32</h2>
+            <img src="{{ url_for('static', filename = 'user.png')}}">
+            <h3>childname</h3>
+            <p>last spent</p>
+        </div>
+        <div class="box2">
+            <h2>$2000.32</h2>
+            <img src="{{ url_for('static', filename = 'user.png')}}">
+            <h3>childname</h3>
+            <p>last spent</p>
+        </div>
+    </div>
+
+    <!--chart code  -->
+
+    <canvas id="myChart" width="400" height="200"></canvas>
+
+    <script>
+        // Get a reference to the canvas element
+        const ctx = document.getElementById('myChart').getContext('2d');
+
+        // Sample data for the chart (you can replace this with your own data)
+        const data = {
+            labels: ['January', 'February', 'March', 'April', 'May'],
+            datasets: [{
+                label: 'Sales',
+                backgroundColor: 'rgb(255, 255, 255)',
+                borderColor: 'rgb(255, 255, 255)',
+                borderWidth: 1,
+                data: [65, 59, 80, 81, 56],
+            }]
+        };
+
+        // Chart configuration
+        const config = {
+            type: 'line', // You can choose other types like 'bar', 'pie', etc.
+            data: data,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        };
+
+        // Create the chart
+        const myChart = new Chart(ctx, config);
+    </script>
+
 </body>
 <footer>
 </footer>
