@@ -1,71 +1,119 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
-    <link href="{{ url_for('static', filename='styles/homesty.css')}}"rel="stylesheet"/>
+    <link href="{{ url_for('static', filename='styles/homesty.css')}}" rel="stylesheet" />
 </head>
-<body> 
-    <h1 class="header">username</h1>
-    <div class="box">
-        <h1>total spent: </h1>
-        <h2 class="total"> $10.000</h2>
-    </div>
-    <div class="container">
-        <div class="box1">
-            <h2>$2000.32</h2>
-            <img src="{{ url_for('static', filename = 'user.png')}}">
-            <h3>childname</h3>
-            <p>last spent</p>
-        </div>
-        <div class="box2">
-            <h2>$2000.32</h2>
-            <img src="{{ url_for('static', filename = 'user.png')}}">
-            <h3>childname</h3>
-            <p>last spent</p>
-        </div>
-    </div>
 
+<body>
+    <h1 class="user">Titilope olododo</h1>
+    <div class="container">
+        <div class="outter1">
+            <div class="inner1">
+                <h1 class="text1">Amount spent</h1>
+                <h2 class="mounth1">June</h2>
+                <p class="amount1">$20.000</p>
+                <p class="accname1">olododo omotomiwa</p>
+            </div>
+        </div>
+        <div class="outter2">
+            <div class="inner2">
+                <h1 class="text2">Amount spent</h1>
+                <h2 class="mounth2">July</h2>
+                <p class="amount2">$20.000</p>
+                <p class="accname2">olododo omowumi</p>
+            </div>
+        </div>
+        <div class="outter3">
+            <div class="inner3">
+                <h1 class="text3">Amount spent</h1>
+                <h2 class="mounth3">August</h2>
+                <p class="amount3">$20.000</p>
+                <p class="accname3">olododo omotumininu</p>
+            </div>
+        </div>
+    </div>
     <!--chart code  -->
 
-    <canvas id="myChart" width="400" height="200"></canvas>
+    <div class="chart">
 
-    <script>
-        // Get a reference to the canvas element
-        const ctx = document.getElementById('myChart').getContext('2d');
+        <canvas id="myChart" width="50" height="30"></canvas>
 
-        // Sample data for the chart (you can replace this with your own data)
-        const data = {
-            labels: ['January', 'February', 'March', 'April', 'May'],
-            datasets: [{
-                label: 'Sales',
-                backgroundColor: 'rgb(255, 255, 255)',
-                borderColor: 'rgb(255, 255, 255)',
-                borderWidth: 1,
-                data: [65, 59, 80, 81, 56],
-            }]
-        };
+        <script>
+            // Get a reference to the canvas element
+            const ctx = document.getElementById('myChart').getContext('2d');
 
-        // Chart configuration
-        const config = {
-            type: 'line', // You can choose other types like 'bar', 'pie', etc.
-            data: data,
-            options: {
-                scales: {
-                    y: {
-                        beginAtZero: true
+            // Sample data for the chart (you can replace this with your own data)
+            const data = {
+                labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
+                datasets: [{
+                    label: 'total spent',
+                    backgroundColor: 'rgb(255, 255, 255)',
+                    borderColor: 'rgb(255, 255, 255)',
+                    borderWidth: 1,
+                    data: [65, 59, 80, 81, 56, 47, 57, 35, 17, 68, 46, 63],
+                }]
+            };
+
+            // Chart configuration 
+            const config = {
+                type: 'line', // You can choose other types like 'bar', 'pie', etc.
+                data: data,
+                options: {
+                    scales: {
+                        y: {
+                            beginAtZero: true
+                        }
                     }
                 }
-            }
-        };
+            };
 
-        // Create the chart
-        const myChart = new Chart(ctx, config);
-    </script>
+            // Create the chart
+            const myChart = new Chart(ctx, config);
+        </script>
+    </div>
+    <!--<div class="wrapper">
+        <div class="sidenav">
+            <h2>nav bar</h2>
+            <ul>
+                <li><a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='home-page.png')}}">dashboard</a></li>
+                <li><a href=""><img src="{{ url_for('static', filename='user.png')}}">account</a></li>
+                <li><a href=""><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
+                <li><a href="{{ url_for('login')}}"><img src="{{ url_for('static', filename='setting.png')}}">logout</a></li>
+            </ul>
+            <div class="logout">
+                <a href="" class="logouts"></a>
+            </div>
+        </div>
+    </div>-->
+
+    <div class="account">
+        <h1>my account</h1>
+        <div class="section">
+            <div class="insection">
+                <h1>account details</h1>
+                <p>firstname :</p>
+                <p>lastname :</p>
+                <p>email :</p>
+                <p>phonenumber :</p>
+                <p>password :</p>
+            </div>
+            <div class="insection1">
+                <h1></h1>
+                <p>firstname :</p>
+                <p>lastname :</p>
+                <p>email :</p>
+                <p>phonenumber :</p>
+                <p>password :</p>
+            </div>
+        </div>
+
+    </div>
 
 </body>
-<footer>
-</footer>
+
 </html>

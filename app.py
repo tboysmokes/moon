@@ -20,11 +20,11 @@ command = '''CREATE TABLE IF NOT EXISTS users
 
 run = '''CREATE TABLE IF NOT EXISTS child
       (ID         INTEGER      PRIMARY KEY
-      NAME         TEXT         NOT NULL,
-      AGE          CHAR(2)      NOT NULL,
-      CARD NUMBER  CHAR(18)     NOT NULL,
-      DATA         CHAR(5)      NOT NULL,
-      CVV          CHAR(3)      NOT NULL,
+      name         TEXT         NOT NULL,
+      age          CHAR(2)      NOT NULL,
+      card number  CHAR(18)     NOT NULL,
+      date         CHAR(5)      NOT NULL,
+      cvv          CHAR(3)      NOT NULL,
       FOREIGN KEY(users_ID) REFERENCES users(ID)
       );'''
 
@@ -33,8 +33,8 @@ cursor.execute(command)
 
 
 
-@app.route('/', methods=['GET', 'POST'])
-def first_page():
+@app.route('/create', methods=['GET', 'POST'])
+def create():
     if request.method == 'POST':
         childname = request.form['name']
         childage = request.form['age']
@@ -56,13 +56,13 @@ def settings():
 
 @app.route('/home')
 def home():
-    return render_template('home.html')
+    connection.row_factory = sqlite3.Row
+    email = "omotomiwar@gmail.com"
+    cursor.execute("select * from users where email = '"+ email +"' ")
+    rows = cursor.fetchall();
+    return render_template('home.html', rows = rows)
 
-@app.route('/sidenav')
-def sidena():
-    return render_template('sidenav.html')
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
         useremail = request.form['email']
@@ -108,9 +108,6 @@ def register():
 
     return render_template('register.html')
 
-@app.route('/logout')
-def logout():
-    return render_template('index.html')
  
 
 if __name__  == '__main__':
