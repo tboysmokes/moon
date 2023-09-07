@@ -2,6 +2,9 @@ from flask import Flask, render_template, url_for, request, flash, redirect
 from flask_login import UserMixin
 import sqlite3
 
+
+
+
 connection = sqlite3.connect("user_data.db", check_same_thread=False)
 cursor = connection.cursor()
 
@@ -9,7 +12,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'child bank app'
 
 command = '''CREATE TABLE IF NOT EXISTS users
-    (ID            INTEGER     PRIMARY KEY,   
+    (ID            INTEGER     PRIMARY KEY AUTOINCREMENT,   
     firstname       TEXT       NOT NULL, 
     lastname        TEXT       NOT NULL, 
     email           TEXT       NOT NULL, 
@@ -18,17 +21,18 @@ command = '''CREATE TABLE IF NOT EXISTS users
  
  
 
-run = '''CREATE TABLE IF NOT EXISTS child
-      (ID         INTEGER      PRIMARY KEY
-      name         TEXT         NOT NULL,
+command2 = '''CREATE TABLE IF NOT EXISTS child
+      (userID       INTEGER    PRIMARY KEY,
+      names         TEXT        NOT NULL,
       age          CHAR(2)      NOT NULL,
       card number  CHAR(18)     NOT NULL,
       date         CHAR(5)      NOT NULL,
       cvv          CHAR(3)      NOT NULL,
-      FOREIGN KEY(users_ID) REFERENCES users(ID)
-      );'''
+      FOREIGN KEY(userID) REFERENCES users(ID));'''
 
 cursor.execute(command)
+cursor.execute(command2)
+
 
 
 
@@ -42,7 +46,6 @@ def create():
         date = request.form['data']
         cvv = request.form['cvv']
 
-        print(childname, cvv)
         cursor.execute("INSERT INTO child VALUES(?,?,?,?,?)", (childname, childage, cardnum, date, cvv))
         print("successful")
 
@@ -57,10 +60,21 @@ def settings():
 @app.route('/home')
 def home():
     connection.row_factory = sqlite3.Row
-    email = "omotomiwar@gmail.com"
-    cursor.execute("select * from users where email = '"+ email +"' ")
-    rows = cursor.fetchall();
-    return render_template('home.html', rows = rows)
+    password = "Omotomiwa321#"
+    cursor.execute("SELECT * FROM users where password = '"+password+"' ")
+    rows = cursor.fetchall()
+
+    records = []
+    for row in rows:
+        fname, lname, email, phoneno, passw = row
+        records.append({
+            'fristname': fname,
+            'lastname': lname,
+            'email': email,
+            'phonenumber': phoneno,
+            'password': passw
+        })
+    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw)
 
 @app.route('/', methods=['GET', 'POST'])
 def login():

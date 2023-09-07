@@ -10,7 +10,25 @@
 </head>
 
 <body>
-    <h1 class="user">Titilope olododo</h1>
+
+    <div class="wrapper">
+        <div class="sidenav">
+            <h2>microTA</h2>
+            <ul>
+                <li><a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='home-page.png')}}">dashboard</a></li>
+                <li><a href="#account" class="scroll-button"><img src="{{ url_for('static', filename='user.png')}}">account</a></li>
+                <li><a href=""><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
+                <li><a href="#trans" class="scroll-button2"><img src="{{ url_for('static', filename='transaction.png')}}">transaction</a></li>
+                <li><a href="{{ url_for('login')}}"><img src="{{ url_for('static', filename='setting.png')}}">logout</a></li>
+            </ul>
+            <div class="logout">
+                <a href="" class="logouts"></a>
+            </div>
+        </div>
+    </div> 
+
+    <div class="sitebody">
+    <h1 class="user">{{fname}} {{lname}}</h1>
     <div class="container">
         <div class="outter1">
             <div class="inner1">
@@ -52,8 +70,8 @@
                 labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
                 datasets: [{
                     label: 'total spent',
-                    backgroundColor: 'rgb(255, 255, 255)',
-                    borderColor: 'rgb(255, 255, 255)',
+                    backgroundColor: 'rgb(0, 0, 0)',
+                    borderColor: 'rgb(0, 0, 0)',
                     borderWidth: 1,
                     data: [65, 59, 80, 81, 56, 47, 57, 35, 17, 68, 46, 63],
                 }]
@@ -76,44 +94,58 @@
             const myChart = new Chart(ctx, config);
         </script>
     </div>
-    <!--<div class="wrapper">
-        <div class="sidenav">
-            <h2>nav bar</h2>
-            <ul>
-                <li><a href="{{ url_for('home')}}"><img src="{{ url_for('static', filename='home-page.png')}}">dashboard</a></li>
-                <li><a href=""><img src="{{ url_for('static', filename='user.png')}}">account</a></li>
-                <li><a href=""><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
-                <li><a href="{{ url_for('login')}}"><img src="{{ url_for('static', filename='setting.png')}}">logout</a></li>
-            </ul>
-            <div class="logout">
-                <a href="" class="logouts"></a>
-            </div>
-        </div>
-    </div>-->
 
-    <div class="account">
+
+    <script>
+        document.querySelector('.scroll-button2').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('#trans').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+    
+    <div id="trans"class="trans">
+        <div class="histroy">
+            <h1>history</h1>
+            
+        </div> 
+    </div>
+    
+
+
+    <script>
+        document.querySelector('.scroll-button').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector('#account').scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    </script>
+
+    <div id="account" class="account">
         <h1>my account</h1>
         <div class="section">
             <div class="insection">
-                <h1>account details</h1>
-                <p>firstname :</p>
-                <p>lastname :</p>
-                <p>email :</p>
-                <p>phonenumber :</p>
-                <p>password :</p>
+                <h2>account details</h2>
+                <p>firstname : {{fname}}</p>
+                <p>lastname : {{lname}}</p>
+                <p>email : {{email}}</p>
+                <p>phonenumber : {{phoneno}}</p>
+                <p>password : {{passw}}</p>
             </div>
             <div class="insection1">
-                <h1></h1>
-                <p>firstname :</p>
-                <p>lastname :</p>
-                <p>email :</p>
-                <p>phonenumber :</p>
-                <p>password :</p>
+                <h2>account</h2>
+                <p>firstname : example</p>
+                <p>lastname : example</p>
+                <p>email : example</p>
+                <p>phonenumber : example</p>
+                <p>password : example</p>
             </div>
         </div>
 
     </div>
-
+</div>
 </body>
 
 </html>
