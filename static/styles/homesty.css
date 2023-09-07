@@ -183,6 +183,14 @@ div.sidenav h2{
     text-decoration: none;
 }
 
+.trans{
+    margin-left: 20px;
+    box-shadow:inset 2px 2px 4px 0px rgba(0, 0, 0, 0.781);
+    padding: 20px 40px;
+    margin-top: 50px;
+    width: 70%;
+}
+
 div.account{
     padding: 20px 40px;
     box-shadow: 2px 2px 4px 0px rgba(0, 0, 0, 0.781);
@@ -192,6 +200,7 @@ div.account{
     width: 70%;
     margin-left: 20px;
 }
+
 
 div.account h1{
     border-bottom: 1px solid black;

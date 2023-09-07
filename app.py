@@ -52,9 +52,6 @@ def create():
     return render_template('create.html')
 
     
-@app.route('/settings')
-def settings():
-    return render_template('setting.html')
 
 
 @app.route('/home')
