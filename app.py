@@ -67,7 +67,9 @@ def add_account():
         accnum = request.form['accnum']
         accpin = request.form['accpin']
         print(accname, accnum)   
-        
+    
+
+    # this is the algorithm that check each database just too confirm that the same account wasn't entered two times
         query = "SELECT * FROM account WHERE userID = '"+userid+"'"
         cursor.execute(query)
 
@@ -90,6 +92,8 @@ def add_account():
                     cursor.execute("INSERT INTO thirdaccount VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
                 else:
                     flash("")
+
+        # i haven't written what will happen if they do 
 
 
 
