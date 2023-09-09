@@ -51,7 +51,7 @@ div.inner input{
     margin-bottom: 20px;
 }
 
-div.inner input[type="text"], input[type="number"]{
+div.inner input[type="text"], input[type="number"], input[type="INTEGER"]{
     color: white;
     border: none;
     border-bottom: 1px solid #ffffff81;

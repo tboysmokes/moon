@@ -8,7 +8,7 @@ connection = sqlite3.connect("user_data.db", check_same_thread=False)
 cursor = connection.cursor()
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = 'child bank app'
+app.config['SECRET_KEY'] = 'microbankapp'
 
 command = '''CREATE TABLE IF NOT EXISTS users
     (ID            INTEGER    PRIMARY KEY AUTOINCREMENT,   
@@ -20,17 +20,36 @@ command = '''CREATE TABLE IF NOT EXISTS users
  
  
 
-command2 = '''CREATE TABLE IF NOT EXISTS child
-      (userID       INTEGER    PRIMARY KEY,
+command2 = '''CREATE TABLE IF NOT EXISTS account
+      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
       bankname      TEXT        NOT NULL,
-      account_num  CHAR(2)      NOT NULL,
-      card number  CHAR(18)     NOT NULL,
-      date         CHAR(5)      NOT NULL,
-      cvv          CHAR(3)      NOT NULL,
+      account_name  TEXT        NOT NULL,
+      account_num   CHAR(10)    NOT NULL UNIQUE,
+      account_pin   CHAR(6)     NOT NULL,
+      FOREIGN KEY(userID) REFERENCES users(ID))'''
+
+
+command3 = '''CREATE TABLE IF NOT EXISTS secaccount
+      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
+      bankname      TEXT        NOT NULL,
+      account_name  TEXT        NOT NULL,
+      account_num   CHAR(10)    NOT NULL UNIQUE,
+      account_pin   CHAR(6)     NOT NULL,
+      FOREIGN KEY(userID) REFERENCES users(ID))'''
+
+
+command4 = '''CREATE TABLE IF NOT EXISTS thirdaccount
+      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
+      bankname      TEXT        NOT NULL,
+      account_name  TEXT        NOT NULL,
+      account_num   CHAR(10)    NOT NULL UNIQUE,
+      account_pin   CHAR(6)     NOT NULL,
       FOREIGN KEY(userID) REFERENCES users(ID))'''
 
 cursor.execute(command)
 cursor.execute(command2)
+cursor.execute(command3)
+cursor.execute(command4)
 
 
 
@@ -38,16 +57,47 @@ cursor.execute(command2)
 
 @app.route('/add_account', methods=['GET', 'POST'])
 def add_account():
+    global bank_name
+    global accname
+    global accnum
     if request.method == 'POST':
-        accname = request.form['name']
-        childage = request.form['age']
-        cardnum = request.form['cardno']
-        date = request.form['data']
-        cvv = request.form['cvv']
-        userid= request.form['userid']
+        userid = request.form['userid']
+        bank_name = request.form['bankna']
+        accname = request.form['accname']
+        accnum = request.form['accnum']
+        accpin = request.form['accpin']
+        print(accname, accnum)   
+        
+        query = "SELECT * FROM account WHERE userID = '"+userid+"'"
+        cursor.execute(query)
 
-        cursor.execute("INSERT INTO child VALUES(?,?,?,?,?,?)", ( userid, accname, childage, cardnum, date, cvv))
+        check = cursor.fetchall()
+
+        if len(check) == 0:
+            cursor.execute("INSERT INTO account VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
+        else:
+            query2 = "SELECT * FROM secaccount WHERE userID = '"+userid+"'"
+            cursor.execute(query2)
+
+            check2 = cursor.fetchall()
+            if len(check2) == 0:
+                cursor.execute("INSERT INTO secaccount VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
+            else:
+                query3 = "SELECT * FROM thirdaccount WHERE userID = '"+userid+"'"
+                cursor.execute(query3)
+                check3 = cursor.fetchall()
+                if len(check3) == 0:
+                    cursor.execute("INSERT INTO thirdaccount VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
+                else:
+                    flash("")
+
+
+
+
+
+        connection.commit()
         print("successful")
+        return redirect("/home", code=302)
 
     return render_template('create.html')
 
@@ -106,6 +156,26 @@ def register():
     return render_template('register.html')
 
 
+def getdata():
+    cursor.execute('''  
+            SELECT account.userID, account.account_name, account.account_pin, users.firstname
+            FROM account
+            INNER JOIN users ON account.userID = users.ID''')
+    datas = cursor.fetchall()
+
+    details = []
+    for data in datas:
+        userid, name, pin, username = data
+        details.append({
+            'account.userID': userid,
+            'account.account_name': name,
+            'account.account_pin': pin,
+            'users.firstname': username
+        })
+        print(userid, username, pin)
+        return redirect("/home", code=302)
+
+
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -125,16 +195,19 @@ def home():
             'phonenumber': phoneno,
             'password': passw
         })
+        getdata()
 
+        ''' 
         if request.method == 'POST':
-            ediname = request.form['']
-            edilname = request.form['']
-            ediemail = request.form['']
-            ediphone = request.form['']
-            edipassword = request.form['']
+            ediname = request.form['ediname']
+            edilname = request.form['edilname']
+            ediemail = request.form['ediemail']
+            ediphone = request.form['ediphone']
+            edipassword = request.form['edipass']
+      '''
 
 
-    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid)
+    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid, bank_name= bank_name, accname=accname, accnum=accnum)
 
  
 

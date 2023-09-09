@@ -10,26 +10,25 @@
     <div class="text">
      <div class="rem">
       <h1>monitor</h1>
-      <p>your child expenses</p>
+      <p>muulitiple accounts</p>
      </div>
     </div>
     <div class="top">
         <div class="inner">
             <form action="" method="POST">
-                <h3 >chid name</h3>
-                <input type="text" required name="name" id="name">
-                <h3>age</h3>
-                <input type="number" maxlength="2" required name="age" id="age">
-                <h3>card number</h3>
-                <input type="text" maxlength="17" required name="cardno" id="cardno">
-                <h3>date</h3>
-                <input type="text" maxlength="5" required name="data" id="data">
-                <h3>cvv</h3>
-                <input type="text" maxlength="3" required name="cvv" id="cvv"><br>
-                <h3>USERID</h3>
-                <input type="INTEGER" required name="userid" id="userid"><br>
+                <h3 >userid</h3>
+                <input type="INTEGER" required name="userid" id="userid">
+                <h3>bank name</h3>
+                <input type="text" required name="bankna" id="bankna">
+                <h3>account name</h3>
+                <input type="text" required name="accname" id="accname">
+                <h3>account number</h3>
+                <input type="text" maxlength="10" required name="accnum" id="accnum">
+                <h3>account pin</h3>
+                <input type="text" maxlength="6" required name="accpin" id="accpin">
+                <h3>email</h3>
+                <input type="text" required name="email" id="email"><br>
                 <input type="submit" value="submit">
-                <a href="{{ url_for('home')}}">skip</a>
             </form>
         </div>
     </div>

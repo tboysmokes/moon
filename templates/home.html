@@ -21,7 +21,7 @@
                 <li><a href="#trans" class="scroll-button2"><img src="{{ url_for('static', filename='transaction.png')}}">transaction</a></li>
                 <li><a href="{{ url_for('login')}}"><img src="{{ url_for('static', filename='setting.png')}}">logout</a></li>
                 <div class="addbutton">
-                <a href="{{ url_for('create')}}"><h1>add account</h1></a>
+                <a href="{{ url_for('add_account')}}"><h1>add account</h1></a>
                 </div>
             </ul>
             <div class="logout">
@@ -38,7 +38,7 @@
                 <h1 class="text1">Amount spent</h1>
                 <h2 class="mounth1">June</h2>
                 <p class="amount1">$20.000</p>
-                <p class="accname1">{{name}}</p>
+                <p class="accname1">account name</p>
             </div>
         </div>
         <div class="outter2">
@@ -46,15 +46,15 @@
                 <h1 class="text2">Amount spent</h1>
                 <h2 class="mounth2">July</h2>
                 <p class="amount2">$20.000</p>
-                <p class="accname2">olododo omowumi</p>
+                <p class="accname2">account name</p>
             </div>
         </div>
         <div class="outter3">
             <div class="inner3">
                 <h1 class="text3">Amount spent</h1>
                 <h2 class="mounth3">August</h2>
-                <p class="amount3">$20.000</p>
-                <p class="accname3">olododo omotumininu</p>
+                <p class="amount3">{{accnum}}</p>
+                <p class="accname3">{{accname}}</p>
             </div>
         </div>
     </div>
@@ -143,11 +143,11 @@
             </div>
             <div class="insection1">
                 <h2>edit account</h2>
-                <p>Firstname : <input type="" name="" id="" ></p>
-                <p>Lastname : <input type="" name="" id="" ></p>
-                <p>Email : <input type="" name="" id="" ></p>
-                <p>Phonenumber : <input type="" name="" id="" ></p>
-                <p>Password : <input type="" name="" id="" ></p>
+                <p>Firstname : <input type="text" name="ediname" id="ediname" ></p>
+                <p>Lastname : <input type="text" name="edilname" id="edilname" ></p>
+                <p>Email : <input type="text" name="ediemail" id="ediemail" ></p>
+                <p>Phonenumber : <input type="text" name="ediphone" id="ediphone" ></p>
+                <p>Password : <input type="password" name="edipass" id="edipass" ></p>
             </div>
         </div>
 

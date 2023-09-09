@@ -24,7 +24,7 @@ div.register p{
     font-size: 19px;
 }
 
-div.register input[type="text"], input[type="name2"], input[type="email"], input[type="number"], input[type="password"], input[type="password"]{
+div.register input[type="text"], input[type="name2"], input[type="email"], input[type="number"], input[type="password"], input[type="password"], input[type="INTEGER"]{
     border: none;
     font-size: 18px;
     color: white;

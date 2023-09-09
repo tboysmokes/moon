@@ -1,6 +1,6 @@
 log/
-*log
+*.log
 *.txt
 *.exe
 *.db
-app.py
+*.py
