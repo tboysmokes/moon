@@ -4,7 +4,6 @@ import sqlite3
 
 
 
-
 connection = sqlite3.connect("user_data.db", check_same_thread=False)
 cursor = connection.cursor()
 
@@ -12,23 +11,23 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = 'child bank app'
 
 command = '''CREATE TABLE IF NOT EXISTS users
-    (ID            INTEGER     PRIMARY KEY AUTOINCREMENT,   
+    (ID            INTEGER    PRIMARY KEY AUTOINCREMENT,   
     firstname       TEXT       NOT NULL, 
     lastname        TEXT       NOT NULL, 
-    email           TEXT       NOT NULL, 
+    email           TEXT       NOT NULL UNIQUE, 
     phonenumber     CHAR(12)   NOT NULL,
-    password        TEXT       NOT NULL);'''
+    password        TEXT       NOT NULL)'''
  
  
 
 command2 = '''CREATE TABLE IF NOT EXISTS child
       (userID       INTEGER    PRIMARY KEY,
-      names         TEXT        NOT NULL,
-      age          CHAR(2)      NOT NULL,
+      bankname      TEXT        NOT NULL,
+      account_num  CHAR(2)      NOT NULL,
       card number  CHAR(18)     NOT NULL,
       date         CHAR(5)      NOT NULL,
       cvv          CHAR(3)      NOT NULL,
-      FOREIGN KEY(userID) REFERENCES users(ID));'''
+      FOREIGN KEY(userID) REFERENCES users(ID))'''
 
 cursor.execute(command)
 cursor.execute(command2)
@@ -37,16 +36,17 @@ cursor.execute(command2)
 
 
 
-@app.route('/create', methods=['GET', 'POST'])
-def create():
+@app.route('/add_account', methods=['GET', 'POST'])
+def add_account():
     if request.method == 'POST':
-        childname = request.form['name']
+        accname = request.form['name']
         childage = request.form['age']
         cardnum = request.form['cardno']
         date = request.form['data']
         cvv = request.form['cvv']
+        userid= request.form['userid']
 
-        cursor.execute("INSERT INTO child VALUES(?,?,?,?,?)", (childname, childage, cardnum, date, cvv))
+        cursor.execute("INSERT INTO child VALUES(?,?,?,?,?,?)", ( userid, accname, childage, cardnum, date, cvv))
         print("successful")
 
     return render_template('create.html')
@@ -54,28 +54,11 @@ def create():
     
 
 
-@app.route('/home')
-def home():
-    connection.row_factory = sqlite3.Row
-    password = "Omotomiwa321#"
-    cursor.execute("SELECT * FROM users where password = '"+password+"' ")
-    rows = cursor.fetchall()
-
-    records = []
-    for row in rows:
-        fname, lname, email, phoneno, passw = row
-        records.append({
-            'fristname': fname,
-            'lastname': lname,
-            'email': email,
-            'phonenumber': phoneno,
-            'password': passw
-        })
-    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw)
 
 @app.route('/', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
+        global useremail
         useremail = request.form['email']
         userpassword = request.form['password']
 
@@ -90,12 +73,13 @@ def login():
             # what to do with the data
             cursor.execute(query)
 
+
             result = cursor.fetchall()
 
             if len(result) == 0:
                 print("incorrect email or password")
             else:
-                return render_template('home.html')
+                return redirect("/home", code=302)
 
 
     return render_template('index.html')    
@@ -110,16 +94,49 @@ def register():
         email = request.form['email']
         PhoneNumber = request.form['phoneno']
         Password = request.form['password']
+        userid = request.form['userid']
         print(firstname, Password)
 
-        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)", (firstname, lastname, email, PhoneNumber, Password))
+        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?)", ( userid, firstname, lastname, email, PhoneNumber, Password))
         connection.commit()
+
         print("successful")
-        return render_template('create.html')
+        return login()
 
     return render_template('register.html')
+
+
+
+@app.route('/home', methods=['GET', 'POST'])
+def home():
+    connection.row_factory = sqlite3.Row
+    cursor.execute("SELECT * FROM users where email = '"+useremail+"' ")
+    rows = cursor.fetchall()
+    print(useremail)
+
+    records = []
+    for row in rows:
+        userid, fname, lname, email, phoneno, passw = row
+        records.append({
+            'userID': userid,
+            'fristname': fname,
+            'lastname': lname,
+            'email': email,
+            'phonenumber': phoneno,
+            'password': passw
+        })
+
+        if request.method == 'POST':
+            ediname = request.form['']
+            edilname = request.form['']
+            ediemail = request.form['']
+            ediphone = request.form['']
+            edipassword = request.form['']
+
+
+    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid)
 
  
 
 if __name__  == '__main__':
-    app.run(debug=True)
+    app.run(debug=True) 

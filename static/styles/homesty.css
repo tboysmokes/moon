@@ -24,6 +24,14 @@ div.container{
     
 }
 
+@media (max-width: 600px) {
+    div.container {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+}
+
 div.outter1{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.252), 0 6px 20px 0 rgba(0, 0, 0, 0.326);
     border-radius: 15px;
@@ -130,8 +138,8 @@ p.accname3{
 
 div.chart{
     margin-top: 70px;
-    margin-left: 20px;
-    width: 77%;
+    margin-left: 50px;
+    width: 60%;
 }
 
 
@@ -167,6 +175,7 @@ div.sidenav h2{
 }
 
 .sidenav li{
+    transition: 0.4s;
     list-style: none;
     padding: 20px 40px;
     
@@ -181,6 +190,27 @@ div.sidenav h2{
 
 .sidenav a{
     text-decoration: none;
+}
+
+.addbutton{
+    margin-top: 20px;
+    border-top: 1px solid black;
+}
+
+
+.addbutton h1{
+    transition: 0.4s;
+    text-align: center;
+    font-size: 17px;
+    margin-top: 20px;
+    padding: 15px 30px;
+}
+
+.addbutton h1:hover{
+    background:linear-gradient(to left, rgba(74, 33, 255, 0.72), rgb(192, 134, 255));
+    border-radius: 20px;
+    padding: 20px 40px;
+    box-shadow: 1px 1px 5px 0px rgba(234, 234, 234, 0.876);
 }
 
 .trans{

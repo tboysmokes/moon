@@ -66,6 +66,7 @@ div.login a{
     color: white;
 }
 div.login input[type="submit"]{
+    transition: 0.4s;
     border: none;
     color: rgb(0, 0, 0);
     background-color: rgb(255, 255, 255);

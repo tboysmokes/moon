@@ -37,6 +37,7 @@ div.register input[type="text"], input[type="name2"], input[type="email"], input
 }
 
 div.register input[type="submit"]{
+    transition: 0.4s;
     font-size: 19px;
     border-radius: 20px;
     margin-left: 80px;

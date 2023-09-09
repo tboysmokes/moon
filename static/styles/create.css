@@ -62,6 +62,7 @@ div.inner input[type="text"], input[type="number"]{
 }
 
 div.inner input[type="submit"]{
+    transition: 0.4s;
     font-size: 20px;
     border-radius: 10px;
     height: 40px;
