@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, flash, redirect
+from flask import Flask, render_template, url_for, request, flash, redirect, jsonify
 from flask_login import UserMixin
 import sqlite3
 
@@ -35,7 +35,7 @@ command3 = '''CREATE TABLE IF NOT EXISTS secaccount
       account_name  TEXT        NOT NULL,
       account_num   CHAR(10)    NOT NULL UNIQUE,
       account_pin   CHAR(6)     NOT NULL,
-      FOREIGN KEY(userID) REFERENCES users(ID))'''
+      FOREIGN KEY(userID) REFERENCES account(ID))'''
 
 
 command4 = '''CREATE TABLE IF NOT EXISTS thirdaccount
@@ -44,7 +44,7 @@ command4 = '''CREATE TABLE IF NOT EXISTS thirdaccount
       account_name  TEXT        NOT NULL,
       account_num   CHAR(10)    NOT NULL UNIQUE,
       account_pin   CHAR(6)     NOT NULL,
-      FOREIGN KEY(userID) REFERENCES users(ID))'''
+      FOREIGN KEY(userID) REFERENCES secaccount(userID))'''
 
 cursor.execute(command)
 cursor.execute(command2)
@@ -57,9 +57,6 @@ cursor.execute(command4)
 
 @app.route('/add_account', methods=['GET', 'POST'])
 def add_account():
-    global bank_name
-    global accname
-    global accnum
     if request.method == 'POST':
         userid = request.form['userid']
         bank_name = request.form['bankna']
@@ -69,7 +66,7 @@ def add_account():
         print(accname, accnum)   
     
 
-    # this is the algorithm that check each database just too confirm that the same account wasn't entered two times
+    # this is the algorithm that check each database just too confirm that the same account wasn't entered two
         query = "SELECT * FROM account WHERE userID = '"+userid+"'"
         cursor.execute(query)
 
@@ -93,19 +90,11 @@ def add_account():
                 else:
                     flash("")
 
-        # i haven't written what will happen if they do 
-
-
-
-
-
         connection.commit()
         print("successful")
         return redirect("/home", code=302)
 
     return render_template('create.html')
-
-    
 
 
 
@@ -113,6 +102,7 @@ def add_account():
 def login():
     if request.method == 'POST':
         global useremail
+        global user_ID
         useremail = request.form['email']
         userpassword = request.form['password']
 
@@ -123,12 +113,23 @@ def login():
         elif len(userpassword) > 20:
             flash('password can not be more that 20 chr', category='error')
         else:
-            query = "SELECT email, password FROM users where email = '"+useremail+"' and password = '"+userpassword+"' "
+            query = "SELECT * FROM users where email = '"+useremail+"' and password = '"+userpassword+"' "
             # what to do with the data
             cursor.execute(query)
 
-
             result = cursor.fetchall()
+            
+            inner = []
+            for row in result:
+                user_ID, fname, lname, email, phoneno, passw = row
+                inner.append({
+                    'userID': user_ID,
+                    'fristname': fname,
+                    'lastname': lname,
+                    'email': email,
+                    'phonenumber': phoneno,
+                    'password': passw
+        })                 
 
             if len(result) == 0:
                 print("incorrect email or password")
@@ -137,7 +138,6 @@ def login():
 
 
     return render_template('index.html')    
-
 
 
 @app.route('/signup', methods=['GET', 'POST'])
@@ -162,22 +162,25 @@ def register():
 
 def getdata():
     cursor.execute('''  
-            SELECT account.userID, account.account_name, account.account_pin, users.firstname
+            SELECT account.account_num, account.account_name, users.firstname
             FROM account
             INNER JOIN users ON account.userID = users.ID''')
     datas = cursor.fetchall()
 
     details = []
     for data in datas:
-        userid, name, pin, username = data
+        accnum, name, username = data
         details.append({
-            'account.userID': userid,
-            'account.account_name': name,
-            'account.account_pin': pin,
-            'users.firstname': username
+            'account_num': accnum,
+            'account_name': name,
+            'firstname': username
         })
-        print(userid, username, pin)
-        return redirect("/home", code=302)
+        print(details)
+    return details
+    
+    
+
+
 
 
 
@@ -199,7 +202,7 @@ def home():
             'phonenumber': phoneno,
             'password': passw
         })
-        getdata()
+        user_data = getdata()
 
         ''' 
         if request.method == 'POST':
@@ -211,7 +214,7 @@ def home():
       '''
 
 
-    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid, bank_name= bank_name, accname=accname, accnum=accnum)
+    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid, user_data=user_data)
 
  
 
