@@ -10,91 +10,60 @@ cursor = connection.cursor()
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'microbankapp'
 
-command = '''CREATE TABLE IF NOT EXISTS users
-    (ID            INTEGER    PRIMARY KEY AUTOINCREMENT,   
-    firstname       TEXT       NOT NULL, 
-    lastname        TEXT       NOT NULL, 
-    email           TEXT       NOT NULL UNIQUE, 
-    phonenumber     CHAR(12)   NOT NULL,
-    password        TEXT       NOT NULL)'''
- 
- 
+query0 = '''
+CREATE TABLE IF NOT EXISTS Users (
+    user_id INTEGER PRIMARY KEY,
+    firstname  TEXT   NOT NULL,
+    lastname   TEXT   NOT NULL,
+    email      TEXt   NOT NULL  UNIQUE,
+    password   TEXT   NOT NULL
+)
+'''
 
-command2 = '''CREATE TABLE IF NOT EXISTS account
-      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
-      bankname      TEXT        NOT NULL,
-      account_name  TEXT        NOT NULL,
-      account_num   CHAR(10)    NOT NULL UNIQUE,
-      account_pin   CHAR(6)     NOT NULL,
-      FOREIGN KEY(userID) REFERENCES users(ID))'''
+# Create Savings_Account table with a foreign key to Users
+query1 = '''
+CREATE TABLE IF NOT EXISTS Account (
+    account_id     INTEGER PRIMARY KEY,
+    user_id        INTEGER,
+    bankName       TEXT    NOT NULL,
+    account_name   TEXT    NOT NULL,
+    account_number TEXT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+)
+'''
+
+# Create Checking_Account table with a foreign key to Users
+query2 = '''
+CREATE TABLE IF NOT EXISTS secAccount (
+    account_id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    secbankName       TEXT    NOT NULL,
+    secaccount_name   TEXT    NOT NULL,
+    secaccount_number TEXT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+)
+'''
+
+# Create Credit_Account table with a foreign key to Users
+query3 = '''
+CREATE TABLE IF NOT EXISTS thirdAccount (
+    account_id INTEGER PRIMARY KEY,
+    user_id INTEGER,
+    thirdbankName       TEXT    NOT NULL,
+    thirdaccount_name   TEXT    NOT NULL,
+    thirdaccount_number TEXT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+)
+'''
+
+# Commit and close the connection
+cursor.execute(query0)
+cursor.execute(query1)
+cursor.execute(query2)
+cursor.execute(query3)
 
 
-command3 = '''CREATE TABLE IF NOT EXISTS secaccount
-      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
-      bankname      TEXT        NOT NULL,
-      account_name  TEXT        NOT NULL,
-      account_num   CHAR(10)    NOT NULL UNIQUE,
-      account_pin   CHAR(6)     NOT NULL,
-      FOREIGN KEY(userID) REFERENCES account(ID))'''
 
-
-command4 = '''CREATE TABLE IF NOT EXISTS thirdaccount
-      (userID       INTEGER    PRIMARY KEY AUTOINCREMENT,
-      bankname      TEXT        NOT NULL,
-      account_name  TEXT        NOT NULL,
-      account_num   CHAR(10)    NOT NULL UNIQUE,
-      account_pin   CHAR(6)     NOT NULL,
-      FOREIGN KEY(userID) REFERENCES secaccount(userID))'''
-
-cursor.execute(command)
-cursor.execute(command2)
-cursor.execute(command3)
-cursor.execute(command4)
-
-
-
-
-
-@app.route('/add_account', methods=['GET', 'POST'])
-def add_account():
-    if request.method == 'POST':
-        userid = request.form['userid']
-        bank_name = request.form['bankna']
-        accname = request.form['accname']
-        accnum = request.form['accnum']
-        accpin = request.form['accpin']
-        print(accname, accnum)   
-    
-
-    # this is the algorithm that check each database just too confirm that the same account wasn't entered two
-        query = "SELECT * FROM account WHERE userID = '"+userid+"'"
-        cursor.execute(query)
-
-        check = cursor.fetchall()
-
-        if len(check) == 0:
-            cursor.execute("INSERT INTO account VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
-        else:
-            query2 = "SELECT * FROM secaccount WHERE userID = '"+userid+"'"
-            cursor.execute(query2)
-
-            check2 = cursor.fetchall()
-            if len(check2) == 0:
-                cursor.execute("INSERT INTO secaccount VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
-            else:
-                query3 = "SELECT * FROM thirdaccount WHERE userID = '"+userid+"'"
-                cursor.execute(query3)
-                check3 = cursor.fetchall()
-                if len(check3) == 0:
-                    cursor.execute("INSERT INTO thirdaccount VALUES (?,?,?,?,?)", ( userid, bank_name, accname, accnum, accpin))
-                else:
-                    flash("")
-
-        connection.commit()
-        print("successful")
-        return redirect("/home", code=302)
-
-    return render_template('create.html')
 
 
 
@@ -121,15 +90,14 @@ def login():
             
             inner = []
             for row in result:
-                user_ID, fname, lname, email, phoneno, passw = row
+                user_ID, fname, lname, email, passw = row
                 inner.append({
                     'userID': user_ID,
                     'fristname': fname,
                     'lastname': lname,
                     'email': email,
-                    'phonenumber': phoneno,
                     'password': passw
-        })                 
+               })                 
 
             if len(result) == 0:
                 print("incorrect email or password")
@@ -140,18 +108,64 @@ def login():
     return render_template('index.html')    
 
 
+@app.route('/add_account', methods=['GET', 'POST'])
+def add_account():
+    global count
+    if request.method == 'POST':
+        bank_name = request.form['bankna']
+        accname = request.form['accname']
+        accnum = request.form['accnum']
+        print(accname, accnum)   
+        print(user_ID)
+
+        identifier = str(user_ID)
+
+    # this is the algorithm that check each database just too confirm that the same account wasn't entered two
+        query = "SELECT * FROM Account WHERE account_id = ?"
+        cursor.execute(query, identifier)
+
+        check = cursor.fetchall()
+
+        if len(check) == 0:
+            count = 1
+            cursor.execute("INSERT INTO Account VALUES (?,?,?,?,?)", ( identifier, identifier, bank_name, accname, accnum))
+        else:
+            query2 = "SELECT * FROM secAccount WHERE account_id = ?"
+            cursor.execute(query2, identifier)
+
+            check2 = cursor.fetchall()
+            if len(check2) == 0:
+                count = 2
+                cursor.execute("INSERT INTO secAccount VALUES (?,?,?,?,?)", ( identifier, identifier, bank_name, accname, accnum))
+            else:
+                query3 = "SELECT * FROM thirdAccount WHERE account_id = ?"
+                cursor.execute(query3, identifier)
+
+                check3 = cursor.fetchall()
+                if len(check3) == 0:
+                    count = 3
+                    cursor.execute("INSERT INTO thirdAccount VALUES (?,?,?,?,?)", ( identifier, identifier, bank_name, accname, accnum))
+                else:
+                    flash("u are watching 3 account already")
+
+        connection.commit()
+        print("successful")
+        return redirect("/home", code=302)
+
+    return render_template('create.html')
+
+
 @app.route('/signup', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
         firstname = request.form['firstname']
         lastname = request.form['lastname']
         email = request.form['email']
-        PhoneNumber = request.form['phoneno']
         Password = request.form['password']
         userid = request.form['userid']
         print(firstname, Password)
 
-        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?,?)", ( userid, firstname, lastname, email, PhoneNumber, Password))
+        cursor.execute("INSERT INTO users VALUES(?,?,?,?,?)", ( userid, firstname, lastname, email, Password))
         connection.commit()
 
         print("successful")
@@ -162,27 +176,30 @@ def register():
 
 def getdata():
     cursor.execute('''  
-            SELECT account.account_num, account.account_name, users.firstname
-            FROM account
-            INNER JOIN users ON account.userID = users.ID''')
+            SELECT firstname, account_name, account_number, secaccount_name, secaccount_number, thirdaccount_name, thirdaccount_number 
+            FROM Users 
+            LEFT JOIN Account ON  Users.user_id = Account.user_id
+            LEFT JOIN secAccount ON  Users.user_id = secAccount.user_id
+            LEFT JOIN thirdAccount ON  Users.user_id = thirdAccount.user_id
+            WHERE Users.user_id  = ?
+            ''', [user_ID])
     datas = cursor.fetchall()
-
     details = []
     for data in datas:
-        accnum, name, username = data
+        username, accountName, accountNumber, secAccountName, secAccountNumber, thirdAccountName, thirdAccountNumber = data
         details.append({
-            'account_num': accnum,
-            'account_name': name,
-            'firstname': username
+            'firstname': username,
+            'account_name': accountName,
+            'account_num':accountNumber,
+            'secaccount_name': secAccountName,
+            'secaccount_number': secAccountNumber,
+            'thirdaccount_name': thirdAccountName,
+            'thirdaccount_number': thirdAccountNumber
         })
         print(details)
-    return details
+        return details
     
     
-
-
-
-
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
@@ -193,28 +210,29 @@ def home():
 
     records = []
     for row in rows:
-        userid, fname, lname, email, phoneno, passw = row
+        userid, fname, lname, email, passw = row
         records.append({
             'userID': userid,
             'fristname': fname,
             'lastname': lname,
             'email': email,
-            'phonenumber': phoneno,
             'password': passw
         })
+
         user_data = getdata()
 
-        ''' 
-        if request.method == 'POST':
-            ediname = request.form['ediname']
-            edilname = request.form['edilname']
-            ediemail = request.form['ediemail']
-            ediphone = request.form['ediphone']
-            edipassword = request.form['edipass']
-      '''
+    
+    if request.method == 'POST':
+        ediname = request.form['ediname']
+        edilname = request.form['edilname']
+        ediemail = request.form['ediemail']
+        edipassword = request.form['edipass']
+
+    
+      
 
 
-    return render_template('home.html', fname = fname, lname = lname, email = email, phoneno = phoneno, passw = passw, userid = userid, user_data=user_data)
+    return render_template('home.html', fname = fname, lname = lname, email = email, passw = passw, userid = userid, user_data= user_data)
 
  
 

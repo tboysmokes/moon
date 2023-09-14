@@ -2,27 +2,36 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <title>Document</title>
     <link href="{{ url_for('static', filename='styles/homesty.css')}}" rel="stylesheet" />
 </head>
 
 <body>
-
     <div class="wrapper">
         <div class="sidenav">
             <h2>microTA</h2>
             <ul>
-                <li><a href="{{ url_for('home')}}"><img
-                            src="{{ url_for('static', filename='home-page.png')}}">dashboard</a></li>
-                <li><a href="#account" class="scroll-button"><img
-                            src="{{ url_for('static', filename='user.png')}}">account</a></li>
-                <li><a href=""><img src="{{ url_for('static', filename='group.png')}}">accounts</a></li>
-                <li><a href="#trans" class="scroll-button2"><img
-                            src="{{ url_for('static', filename='transaction.png')}}">transaction</a></li>
-                <li><a href="{{ url_for('login')}}"><img src="{{ url_for('static', filename='setting.png')}}">logout</a>
+                <li>
+                    <a href="{{ url_for('home')}}"><img
+                            src="{{ url_for('static', filename='home-page.png')}}" />dashboard</a>
+                </li>
+                <li>
+                    <a href="#account" class="scroll-button"><img
+                            src="{{ url_for('static', filename='user.png')}}" />account</a>
+                </li>
+                <li>
+                    <a href=""><img src="{{ url_for('static', filename='group.png')}}" />accounts</a>
+                </li>
+                <li>
+                    <a href="#trans" class="scroll-button2"><img
+                            src="{{ url_for('static', filename='transaction.png')}}" />transaction</a>
+                </li>
+                <li>
+                    <a href="{{ url_for('login')}}"><img
+                            src="{{ url_for('static', filename='setting.png')}}" />logout</a>
                 </li>
                 <div class="addbutton">
                     <a href="{{ url_for('add_account')}}">
@@ -43,79 +52,94 @@
                 <div class="inner1">
                     <h1 class="text1">Amount spent</h1>
                     <h2 class="mounth1">June</h2>
-                    <p class="amount1"></span></p>
-                    <p class="accname1"></span></p>
+                    <p class="amount1"><span id="accnumber"></span></p>
+                    <p class="accname1"><span id="accname"></span></p>
                 </div>
             </div>
             <div class="outter2">
                 <div class="inner2">
                     <h1 class="text2">Amount spent</h1>
                     <h2 class="mounth2">July</h2>
-                    <p class="amount2">{{secaccname}}</p>
-                    <p class="accname2">{{secaccnum}}</p>
+                    <p class="amount2"><span id="secaccnumber"></span></p>
+                    <p class="accname2"><span id="secaccname"></span></p>
                 </div>
             </div>
             <div class="outter3">
                 <div class="inner3">
                     <h1 class="text3">Amount spent</h1>
                     <h2 class="mounth3">August</h2>
-                    <p class="amount3">{{thirdaccnum}}</p>
-                    <p class="accname3">{{thirdaccname}}</p>
+                    <p class="amount3"><span id="thirdaccnumber"></span></p>
+                    <p class="accname3"><span id="thirdaccname"></span></p>
                 </div>
             </div>
         </div>
         <!--chart code  -->
 
-
         <script>
-            document.querySelector('.scroll-button2').addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector('#trans').scrollIntoView({
-                    behavior: 'smooth'
+            document
+                .querySelector(".scroll-button2")
+                .addEventListener("click", function (e) {
+                    e.preventDefault();
+                    document.querySelector("#trans").scrollIntoView({
+                        behavior: "smooth",
+                    });
                 });
-            });
         </script>
 
         <div id="trans" class="trans">
             <div class="histroy">
-                <h1 style="text-align: center; text-transform: uppercase;">history</h1>
-                <h2 style="text-align: left; text-transform: capitalize;">transaction by all accounts</h2>
-
+                <h1 style="text-align: center; text-transform: uppercase">history</h1>
+                <h2 style="text-align: left; text-transform: capitalize">
+                    transaction by all accounts <span id="firstname"></span>
+                </h2>
             </div>
         </div>
 
-
         <div class="chart">
-
             <canvas id="myChart" width="50" height="30"></canvas>
 
             <script>
                 // Get a reference to the canvas element
-                const ctx = document.getElementById('myChart').getContext('2d');
+                const ctx = document.getElementById("myChart").getContext("2d");
 
                 // Sample data for the chart (you can replace this with your own data)
                 const data = {
-                    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'jun', 'jul', 'aug', 'sep', 'oct', 'nov', 'dec'],
-                    datasets: [{
-                        label: 'total spent',
-                        backgroundColor: 'dodgerblue',
+                    labels: [
+                        "Jan",
+                        "Feb",
+                        "Mar",
+                        "Apr",
+                        "May",
+                        "jun",
+                        "jul",
+                        "aug",
+                        "sep",
+                        "oct",
+                        "nov",
+                        "dec",
+                    ],
+                    datasets: [
+                        {
+                            label: "total spent",
+                            backgroundColor: "dodgerblue",
 
-                        borderWidth: 1,
-                        data: [25, 26, 45, 49, 66, 74, 83, 85, 70, 60, 46, 63],
-                    }]
+                            borderWidth: 1,
+                            data: [25, 26, 45, 49, 66, 74, 83, 85, 70, 60, 46, 63],
+                        },
+                    ],
                 };
 
-                // Chart configuration 
+                // Chart configuration
                 const config = {
-                    type: 'bar', // You can choose other types like 'bar', 'pie', etc.
+                    type: "bar", // You can choose other types like 'bar', 'pie', etc.
                     data: data,
                     options: {
                         scales: {
                             y: {
-                                beginAtZero: true
-                            }
-                        }
-                    }
+                                beginAtZero: true,
+                            },
+                        },
+                    },
                 };
 
                 // Create the chart
@@ -123,15 +147,15 @@
             </script>
         </div>
 
-
-
         <script>
-            document.querySelector('.scroll-button').addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector('#account').scrollIntoView({
-                    behavior: 'smooth'
+            document
+                .querySelector(".scroll-button")
+                .addEventListener("click", function (e) {
+                    e.preventDefault();
+                    document.querySelector("#account").scrollIntoView({
+                        behavior: "smooth",
+                    });
                 });
-            });
         </script>
 
         <div id="account" class="account">
@@ -142,37 +166,51 @@
                     <p>Firstname : {{fname}}</p>
                     <p>Lastname : {{lname}}</p>
                     <p>Email : {{email}}</p>
-                    <p>Phonenumber : {{phoneno}}</p>
                     <p>Password : {{passw}}</p>
                     <p>User Id: {{userid}}</p>
-
                 </div>
                 <div class="insection1">
-                    <h2>edit account</h2>
-                    <p>Firstname : <input type="text" name="ediname" id="ediname"></p>
-                    <p>Lastname : <input type="text" name="edilname" id="edilname"></p>
-                    <p>Email : <input type="text" name="ediemail" id="ediemail"></p>
-                    <p>Phonenumber : <input type="text" name="ediphone" id="ediphone"></p>
-                    <p>Password : <input type="password" name="edipass" id="edipass"></p>
+                    <form method="POST">
+                        <h2>edit account</h2>
+                        <p>
+                            Firstname : <input type="text" name="ediname" id="ediname" />
+                        </p>
+                        <p>
+                            Lastname : <input type="text" name="edilname" id="edilname" />
+                        </p>
+                        <p>Email : <input type="text" name="ediemail" id="ediemail" /></p>
+                        <p>
+                            Password : <input type="password" name="edipass" id="edipass" />
+                        </p>
+                        <input type="submit" value="submit" />
+                    </form>
                 </div>
             </div>
-
         </div>
     </div>
-    <script>
-        const user_data = JSON.parse('{{ user_data | tojson | safe }}');
-
-        const account_nameElement = document.getElementById('account_name');
-        const account_numElement = document.getElementById('account_num');
-        const firstnameElement = document.getElementById('firstname');
-
-        account_nameElement.textContent = user_data.account_name;
-        account_numElement.textContent = user_data.account_num;
-        firstnameElement.textContent = user_data.firstname;  
-
-
-    </script>     
-
 </body>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Your code to update <span> elements goes here
+        const user_data = JSON.parse("{{ user_data | tojson | safe }}");
+
+        const firstnameElement = document.getElementById("firstname");
+        const account_nameElement = document.getElementById("accname");
+        const account_numElement = document.getElementById("accnumber");
+        const secaccount_nameElement = document.getElementById("secaccname");
+        const secaccount_numElement = document.getElementById("secaccnumber");
+        const thirdaccount_nameElement = document.getElementById("thirdaccname");
+        const thirdaccount_numElement = document.getElementById("thirdaccnumber");
+
+        firstnameElement.textContent = user_data.firstname;
+        account_nameElement.textContent = user_data.account_name;
+        account_numElement.textContent = user_data.account_number;
+        secaccount_nameElement.textContent = user_data.secaccount_name;
+        secaccount_numElement.textContent = user_data.secaccount_number;
+        thirdaccount_nameElement.textContent = user_data.thirdaccount_name;
+        thirdaccount_numElement.textContent = user_data.thirdaccount_number;
+    });
+</script>
 
 </html>
