@@ -1,31 +1,22 @@
-"""
+from faker import Faker
+import random
+import datetime
 
-print(''' SELECT users.firstname, users.lastname, users.email, users.phonenumber, users.passwords, 
-          account.account_name, account.account_num,
-          secaccount.account_name, secaccount.account_num,
-          thirdaccount.account_name, thirdaccount.account_num
-          FROM users 
-          LEFT JOIN account ON users.ID = account.userID 
-          LEFT JOIN secaccount ON account.userID = secaccount.userID
-          LEFT JOIN thirdaccount ON secaccount.userID = thirdaccount.userID
-          WHERE users.ID = ?''', (userid))
+fake = Faker()
 
-firstname   
-lastname       
-email            
-phonenumber     
-password
+def generate_transaction():
+    date = fake.date_between(start_date='-1y', end_date='today')
+    description = fake.sentence()
+    amount = round(random.uniform(1, 1000), 2)
+    account = fake.credit_card_number(card_type='mastercard')
+    return {
+        'date': date,
+        'description': description,
+        'amount': amount,
+        'account': account
+    }
 
-account
-account_name
-account_num
+transactions = [generate_transaction() for _ in range(100)]  # Generate 100 random transactions
 
-secaccount
-account_name
-account_num
-
-thirdaccount
-account_name
-account_num
-
-"""
+for transaction in transactions:
+    print(transaction)

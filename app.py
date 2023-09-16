@@ -56,13 +56,27 @@ CREATE TABLE IF NOT EXISTS thirdAccount (
 )
 '''
 
+name = "transactionHistory"
+
+cursor.execute(f'DROP TABLE IF EXISTS {name}')
+
+query4 = '''
+CREATE TABLE IF NOT EXISTS transactionHistory(
+    user_id INTEGER,
+    description       TEXT    NOT NULL,
+    amount            TEXT    NOT NULL,
+    data              TEXT    NOT NULL,
+    account           TEXT    NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES Users(user_id)
+)
+'''
+
 # Commit and close the connection
 cursor.execute(query0)
 cursor.execute(query1)
 cursor.execute(query2)
 cursor.execute(query3)
-
-
+cursor.execute(query4)
 
 
 
@@ -190,7 +204,7 @@ def getdata():
         details.append({
             'firstname': username,
             'account_name': accountName,
-            'account_num':accountNumber,
+            'account_num': accountNumber,
             'secaccount_name': secAccountName,
             'secaccount_number': secAccountNumber,
             'thirdaccount_name': thirdAccountName,
@@ -203,6 +217,7 @@ def getdata():
 
 @app.route('/home', methods=['GET', 'POST'])
 def home():
+    useriden = str(user_ID)
     connection.row_factory = sqlite3.Row
     cursor.execute("SELECT * FROM users where email = '"+useremail+"' ")
     rows = cursor.fetchall()
@@ -227,6 +242,24 @@ def home():
         edilname = request.form['edilname']
         ediemail = request.form['ediemail']
         edipassword = request.form['edipass']
+
+        if ediname == "":
+            print("no data here")
+        else:
+            cursor.execute("UPDATE Users set firstname = '"+ediname+"' WHERE user_id = ? ", (useriden))
+        if edilname == "":
+            print("no data here")
+        else:
+            cursor.execute("UPDATE Users set lastname = '"+edilname+"' WHERE user_id = ? ", (useriden))
+        if ediemail == "":
+            print("no data here")
+        else:
+            cursor.execute("UPDATE Users set email = '"+ediemail+"' WHERE user_id = ?", (useriden))
+        if edipassword == "":
+            print("no data here")
+        else:
+            cursor.execute("UPDATE Users set password = '"+edipassword+"' WHERE user_id = ?", (useriden))
+    
 
     
       
