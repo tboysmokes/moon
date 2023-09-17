@@ -276,3 +276,39 @@ div.insection1 h2{
 div.insection1 p{
     padding-bottom: 20px;
 }
+
+.histroy {
+    align-items: center;
+}
+
+
+.innerbody{
+    display: flex;
+    justify-content: center;
+}
+
+.descri{
+    font-size: 13px;
+    padding: 20px 100px;
+    text-align: left;
+}
+
+.amou{
+    font-size: 13px;
+    padding: 20px 100px;
+    align-items: center;
+}
+
+.date{
+    font-size: 13px;
+    padding: 20px 100px;
+    text-align: left;
+}
+
+.acc{
+    font-size: 13px;
+    padding: 20px 100px;
+    text-align: left;
+}
+
+

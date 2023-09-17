@@ -56,9 +56,6 @@ CREATE TABLE IF NOT EXISTS thirdAccount (
 )
 '''
 
-name = "transactionHistory"
-
-cursor.execute(f'DROP TABLE IF EXISTS {name}')
 
 query4 = '''
 CREATE TABLE IF NOT EXISTS transactionHistory(
@@ -188,6 +185,37 @@ def register():
     return render_template('register.html')
 
 
+
+
+
+
+def gethistory():
+    cursor.execute('''
+           SELECT description, amount, account, data
+           FROM transactionHistory
+           WHERE user_id = ?
+''', [user_ID])
+    transactiondetails = cursor.fetchall()
+
+    details = []
+    for data in transactiondetails:
+        description, amount, account, date = data
+        details.append({
+            'description': description,
+            'amount': amount,
+            'account': account,
+            'data': date
+        })
+    
+
+    for money in amount:
+        amount2 = money + money
+        print(amount2)
+
+
+    return details
+
+
 def getdata():
     cursor.execute('''  
             SELECT firstname, account_name, account_number, secaccount_name, secaccount_number, thirdaccount_name, thirdaccount_number 
@@ -233,6 +261,7 @@ def home():
             'email': email,
             'password': passw
         })
+        data = gethistory()
 
         user_data = getdata()
 
@@ -265,7 +294,7 @@ def home():
       
 
 
-    return render_template('home.html', fname = fname, lname = lname, email = email, passw = passw, userid = userid, user_data= user_data)
+    return render_template('home.html', fname = fname, lname = lname, email = email, passw = passw, userid = userid, user_data= user_data, data= data)
 
  
 
