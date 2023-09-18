@@ -1,22 +1,7 @@
-from faker import Faker
-import random
-import datetime
+list = [1, 2, 3, 4, 5, 6]
 
-fake = Faker()
+total = 0
+for run in list:
+    total += run
 
-def generate_transaction():
-    date = fake.date_between(start_date='-1y', end_date='today')
-    description = fake.sentence()
-    amount = round(random.uniform(1, 1000), 2)
-    account = fake.credit_card_number(card_type='mastercard')
-    return {
-        'date': date,
-        'description': description,
-        'amount': amount,
-        'account': account
-    }
-
-transactions = [generate_transaction() for _ in range(100)]  # Generate 100 random transactions
-
-for transaction in transactions:
-    print(transaction)
+    print(total)

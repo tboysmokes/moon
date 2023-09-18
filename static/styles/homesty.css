@@ -139,7 +139,7 @@ p.accname3{
 div.chart{
     margin-top: 70px;
     margin-left: 50px;
-    width: 60%;
+    width: 70%;
 }
 
 
@@ -288,26 +288,30 @@ div.insection1 p{
 }
 
 .descri{
+    text-transform: capitalize;
     font-size: 13px;
-    padding: 20px 100px;
+    padding: 10px 70px;
     text-align: left;
 }
 
 .amou{
+    text-transform: capitalize;
     font-size: 13px;
-    padding: 20px 100px;
+    padding: 10px 70px;
     align-items: center;
 }
 
 .date{
+    text-transform: capitalize;
     font-size: 13px;
-    padding: 20px 100px;
+    padding: 10px 70px;
     text-align: left;
 }
 
 .acc{
+    text-transform: capitalize;
     font-size: 13px;
-    padding: 20px 100px;
+    padding: 10px 70px;
     text-align: left;
 }
 

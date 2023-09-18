@@ -92,23 +92,29 @@
         <div id="trans" class="trans">
             <div class="histroy">
                 <h1 style="text-align: center; text-transform: uppercase">history</h1>
-                <h1>in : </h1>   <h1>out : </h1>
+                <h1>in : ${{totalin}}</h1>   <h1>out : ${{totalout}}</h1>
+                
                 {% for row in data %}
+
                 <div class="innerbody">
                 <div class="descri">
                     <h2 style="text-align: center">{{row.description}}</h2>
                 </div>
                 <div class="amou">
-                    <h2 style="text-align: center">{{row.data}}</h2>
+                    <h2 style="text-align: center">{{row.date}}</h2>
                 </div>
                 <div class="date">
                     <h2 style="text-align: center">{{row.account}}</h2>
                 </div>
                 <div class="acc">
-                    <h2 style="text-align: center">{{row.amount}}</h2>
+                    <h2 style="text-align: center">${{row.amount}}</h2>
                 </div>
+
                 </div>
                 {% endfor %}
+
+                <h1>toatal : ${{total}}</h1>
+
             </div>
         </div>
 
@@ -141,7 +147,7 @@
                             backgroundColor: "dodgerblue",
 
                             borderWidth: 1,
-                            data: [25, 26, 45, 49, 66, 74, 83, 1000, 70, 60, 46, 63],
+                            data: [10000, 2000, 40000, 49, 66, 74, 83, 100000, 70, 60, 46, 63],
                         },
                     ],
                 };

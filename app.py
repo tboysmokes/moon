@@ -187,6 +187,104 @@ def register():
 
 
 
+def getallin():
+    cursor.execute('''
+           SELECT amount, data, account
+           FROM transactionHistory
+           WHERE user_id = ? AND description = "deposit"
+    ''', [user_ID])
+
+    transactiondetails = cursor.fetchall()
+
+    details = []
+    totalin = 0.0  # Initialize total as a float since amount can contain decimals
+
+    for data in transactiondetails:
+        amount, account, date = data
+        
+        # Convert 'amount' to a float
+        amount = float(amount)
+        
+        # Add the converted amount to the total
+        totalin += amount
+        
+        details.append({
+            'amount': amount,
+            'account': account,
+            'date': date
+        })
+        print(totalin)
+  # Print the final total
+
+
+    return totalin
+
+def getallout():
+    cursor.execute('''
+           SELECT amount, data, account
+           FROM transactionHistory
+           WHERE user_id = ? AND description = "tranfer"
+    ''', [user_ID])
+
+    transactiondetails = cursor.fetchall()
+
+    details = []
+    totalout = 0.0  # Initialize total as a float since amount can contain decimals
+
+    for data in transactiondetails:
+        amount, account, date = data
+        
+        # Convert 'amount' to a float
+        amount = float(amount)
+        
+        # Add the converted amount to the total
+        totalout += amount
+        
+        details.append({
+            'amount': amount,
+            'account': account,
+            'date': date
+        })
+        print(totalout)
+  # Print the final total
+
+
+    return totalout
+
+
+
+# this function get the total amount spent ever month
+def gettotal():
+    cursor.execute('''
+           SELECT description, amount, account, data
+           FROM transactionHistory
+           WHERE user_id = ?
+    ''', [user_ID])
+
+    transactiondetails = cursor.fetchall()
+
+    details = []
+    total = 0.0  # Initialize total as a float since amount can contain decimals
+
+    for data in transactiondetails:
+        description, amount, account, date = data
+        
+        # Convert 'amount' to a float
+        amount = float(amount)
+        
+        # Add the converted amount to the total
+        total += amount
+        
+        details.append({
+            'description': description,
+            'amount': amount,
+            'account': account,
+            'date': date
+        })
+  # Print the final total
+
+    return total
+
 
 
 def gethistory():
@@ -194,26 +292,25 @@ def gethistory():
            SELECT description, amount, account, data
            FROM transactionHistory
            WHERE user_id = ?
-''', [user_ID])
+    ''', [user_ID])
+
     transactiondetails = cursor.fetchall()
 
     details = []
+
     for data in transactiondetails:
         description, amount, account, date = data
+        
         details.append({
             'description': description,
             'amount': amount,
             'account': account,
-            'data': date
+            'date': date
         })
-    
-
-    for money in amount:
-        amount2 = money + money
-        print(amount2)
-
+  # Print the final total
 
     return details
+
 
 
 def getdata():
@@ -238,7 +335,7 @@ def getdata():
             'thirdaccount_name': thirdAccountName,
             'thirdaccount_number': thirdAccountNumber
         })
-        print(details)
+
         return details
     
     
@@ -261,9 +358,13 @@ def home():
             'email': email,
             'password': passw
         })
-        data = gethistory()
+  
 
+        total = gettotal()
+        data = gethistory()
         user_data = getdata()
+        totalin = getallin()
+        totalout = getallout()
 
     
     if request.method == 'POST':
@@ -271,6 +372,7 @@ def home():
         edilname = request.form['edilname']
         ediemail = request.form['ediemail']
         edipassword = request.form['edipass']
+
 
         if ediname == "":
             print("no data here")
@@ -294,7 +396,7 @@ def home():
       
 
 
-    return render_template('home.html', fname = fname, lname = lname, email = email, passw = passw, userid = userid, user_data= user_data, data= data)
+    return render_template('home.html', fname = fname, lname = lname, email = email, passw = passw, userid = userid, user_data= user_data, data= data, total = total, totalin = totalin, totalout = totalout)
 
  
 
