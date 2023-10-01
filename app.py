@@ -1,5 +1,4 @@
-from flask import Flask, render_template, url_for, request, flash, redirect, jsonify
-from flask_login import UserMixin
+from flask import Flask, render_template, url_for, request, flash, redirect
 import sqlite3
 
 
@@ -36,7 +35,7 @@ CREATE TABLE IF NOT EXISTS Account (
 query2 = '''
 CREATE TABLE IF NOT EXISTS secAccount (
     account_id INTEGER PRIMARY KEY,
-    user_id INTEGER,
+    user_id    INTEGER,
     secbankName       TEXT    NOT NULL,
     secaccount_name   TEXT    NOT NULL,
     secaccount_number TEXT    NOT NULL,
@@ -86,7 +85,6 @@ def login():
         useremail = request.form['email']
         userpassword = request.form['password']
 
-        print(useremail, userpassword)
 
         if len(useremail) < 7:
             flash('Email must be greater that seven charaters ', category='error')
@@ -346,7 +344,6 @@ def home():
     connection.row_factory = sqlite3.Row
     cursor.execute("SELECT * FROM users where email = '"+useremail+"' ")
     rows = cursor.fetchall()
-    print(useremail)
 
     records = []
     for row in rows:
